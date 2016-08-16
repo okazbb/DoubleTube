@@ -1,0 +1,52 @@
+.content {
+    /*width: 80%;*/
+    text-align: center;
+}
+.container {
+    overflow: hidden;
+}
+.panel {
+    float: left;
+    margin: 20px;
+}
+.player {
+    width: 426px;
+    height: 240px;
+    background-color: gray;
+}
+.control {
+    margin: 15px;
+}
+.button_load{
+    /*padding: 5px 5px;*/
+    margin: 5px 10px;
+}
+.button_adjust{
+    /*padding: 5px 5px;*/
+    margin-left: 5px;
+    margin-bottom: 10px;
+}
+.button_player {
+    /*padding: 30px 50px;*/
+    margin-left: 50px;
+}
+.content {
+    display: none;
+}
+.video_id {
+    width: 120px;
+}
+.manual {
+    text-align: left;
+}
+h1 {
+    font-size: large;
+}
+h2 {
+    font-size: medium;
+}
+
+.pageinfo {
+    padding-top: 40px;
+    text-align: center;
+}
