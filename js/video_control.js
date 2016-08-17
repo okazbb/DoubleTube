@@ -2,56 +2,78 @@ $(document).ready(function(){
     $("#play").click(function(event) {
         startVideo();
     }),
-        $("#pause").click(function(event) {
-            pauseVideo();
-        }),
-        $(".seekprev").click(function(event) {
-            num = $(this).attr('num');
-            video['video'+num].seekTo(video['video'+num].getCurrentTime() - 0.1, true);
-        }),
-        $(".seeknext").click(function(event) {
-            num = $(this).attr('num');
-            video['video'+num].seekTo(video['video'+num].getCurrentTime() + 0.1, true);
-        }),
-        $(".seekprev2s").click(function(event) {
-            num = $(this).attr('num');
-            video['video'+num].seekTo(video['video'+num].getCurrentTime() - 2.0, true);
-        }),
-        $(".seeknext2s").click(function(event) {
-            num = $(this).attr('num');
-            video['video'+num].seekTo(video['video'+num].getCurrentTime() + 2.0, true);
-        }),
-        $(".button_load").click(function(event){
-            video_id = $(this).parent().find('.video_id');
-            if(video_id.val().trim() != ''){
-                num = video_id.attr('num');
-                switch(num){
-                    case '1':
-                        video['video'+num] = null;
-                        video['video'+num] = new YT.Player('player'+num, {
-                            height: '390',
-                            width: '640',
-                            videoId: video_id.val(),
-                            events: {
-                                'onReady': onPlayerReady,
-                                'onStateChange': onPlayerStateChange1
-                            }
-                        });
-                        break;
-                    case '2':
-                        video['video'+num] = new YT.Player('player'+num, {
-                            height: '390',
-                            width: '640',
-                            videoId: video_id.val(),
-                            events: {
-                                'onReady': onPlayerReady,
-                                'onStateChange': onPlayerStateChange2
-                            }
-                        });
-                        break;
-                }
+    $("#pause").click(function(event) {
+        pauseVideo();
+    }),
+    $("#seekprev_a").click(function(event) {
+        for($i=1; $i<=2; $i++) {
+            video['video' + $i].seekTo(video['video' + $i].getCurrentTime() - 0.1, true);
+        }
+    }),
+    $("#seeknext_a").click(function(event) {
+        for($i=1; $i<=2; $i++) {
+            video['video' + $i].seekTo(video['video' + $i].getCurrentTime() + 0.1, true);
+        }
+    }),
+    $("#seekprev2s_a").click(function(event) {
+        for($i=1; $i<=2; $i++) {
+            video['video' + $i].seekTo(video['video' + $i].getCurrentTime() - 2.0, true);
+        }
+    }),
+    $("#seeknext2s_a").click(function(event) {
+        for($i=1; $i<=2; $i++) {
+            video['video' + $i].seekTo(video['video' + $i].getCurrentTime() + 2.0, true);
+        }
+    }),
+
+    $(".seekprev").click(function(event) {
+        num = $(this).attr('num');
+        video['video'+num].seekTo(video['video'+num].getCurrentTime() - 0.1, true);
+    }),
+    $(".seeknext").click(function(event) {
+        num = $(this).attr('num');
+        video['video'+num].seekTo(video['video'+num].getCurrentTime() + 0.1, true);
+    }),
+    $(".seekprev2s").click(function(event) {
+        num = $(this).attr('num');
+        video['video'+num].seekTo(video['video'+num].getCurrentTime() - 2.0, true);
+    }),
+    $(".seeknext2s").click(function(event) {
+        num = $(this).attr('num');
+        video['video'+num].seekTo(video['video'+num].getCurrentTime() + 2.0, true);
+    }),
+
+    $(".button_load").click(function(event){
+        video_id = $(this).parent().find('.video_id');
+        if(video_id.val().trim() != ''){
+            num = video_id.attr('num');
+            switch(num){
+                case '1':
+                    video['video'+num] = null;
+                    video['video'+num] = new YT.Player('player'+num, {
+                        height: '390',
+                        width: '640',
+                        videoId: video_id.val(),
+                        events: {
+                            'onReady': onPlayerReady,
+                            'onStateChange': onPlayerStateChange1
+                        }
+                    });
+                    break;
+                case '2':
+                    video['video'+num] = new YT.Player('player'+num, {
+                        height: '390',
+                        width: '640',
+                        videoId: video_id.val(),
+                        events: {
+                            'onReady': onPlayerReady,
+                            'onStateChange': onPlayerStateChange2
+                        }
+                    });
+                    break;
             }
-        })
+        }
+    })
 });
 var tag = document.createElement('script');
 // YT.PlayerState.ENDED

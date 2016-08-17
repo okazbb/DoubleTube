@@ -48,9 +48,10 @@
 
     <div class="container">
         <div class="pageinfo">
-        <h1>比較動画メーカー(仮)</h1>
-        <h2>Youtube動画を2つ同時に再生して、比較動画っぽく表示してみます。</h2>
-</div>
+            <h1>比較動画メーカー(仮)</h1>
+            <h2>Youtube動画を2つ同時に再生して、比較動画っぽく表示してみます。</h2>
+        </div>
+
         <div class="loding">
             ロード中...
         </div>
@@ -66,7 +67,7 @@
                     <br />
                     <button id="seek<?=$i?>prev2s" class="seekprev2s btn btn-default button_adjust" num="<?=$i?>"><i class="glyphicon glyphicon-backward"></i> -2.0秒</button>
                     <button id="seek<?=$i?>prev" class="seekprev btn btn-default button_adjust" num="<?=$i?>"><i class="glyphicon glyphicon-backward"></i> -0.1秒</button>
-                    <span style="margin-left: 20px;"></span>
+                    <span style="margin-left: 15px;"></span>
                     <button id="seek<?=$i?>next" class="seeknext btn btn-default button_adjust" num="<?=$i?>">+0.1秒 <i class="glyphicon glyphicon-forward"></i></button>
                     <button id="seek<?=$i?>next2s" class="seeknext2s btn btn-default button_adjust" num="<?=$i?>">+2.0秒 <i class="glyphicon glyphicon-forward"></i></button>
                 </div>
@@ -74,11 +75,17 @@
             </div>
 
             <div class="row">
-                <div class="control col-md-3">
-                    <button id="play" class="button_player btn-lg btn-default" /><i class="glyphicon glyphicon-play"></i> 再　　生</button>
+                <div class="control col-xs-12 col-sm-4 col-md-4">
+                    <button id="seekprev2s_a" class="button_player btn-default btn-lg" /><i class="glyphicon glyphicon glyphicon-backward"></i> -2.0秒</button>
+                    <button id="seekprev_a" class="button_player btn-default btn-lg" /><i class="glyphicon glyphicon glyphicon-backward"></i> -0.1秒</button>
                 </div>
-                <div class="control col-md-3">
-                    <button id="pause" class="button_player btn-lg btn-default" /><i class="glyphicon glyphicon-pause"></i> 一時停止</button>
+                <div class="control col-xs-12  col-sm-4 col-md-4">
+                    <button id="play" class="button_player btn-default btn-lg" /><i class="glyphicon glyphicon-play"></i> 再生</button>
+                    <button id="pause" class="button_player btn-default btn-lg" /><i class="glyphicon glyphicon-pause"></i> 停止</button>
+                </div>
+                <div class="control col-xs-12 col-sm-4 col-md-4">
+                    <button id="seeknext_a" class="button_player btn-default btn-lg" /><i class="glyphicon glyphicon-forward"></i> +0.1秒</button>
+                    <button id="seeknext2s_a" class="button_player btn-default btn-lg" /><i class="glyphicon glyphicon-forward"></i> +2.0秒</button>
                 </div>
             </div>
         </div>
