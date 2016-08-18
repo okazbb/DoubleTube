@@ -28,7 +28,7 @@
 }
 .button_player {
     /*padding: 30px 50px;*/
-    margin-left: 50px;
+    margin-left: 20px;
 }
 .content {
     display: none;
@@ -50,3 +50,18 @@ h2 {
     padding-top: 40px;
     text-align: center;
 }
+
+.movie_url {
+
+}
+.video_navi {
+    padding: 10px;
+}
+
+.share {
+    padding: 15px;
+}
+#share_url {
+    width: 600px;
+}
+

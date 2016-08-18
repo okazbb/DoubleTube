@@ -9,20 +9,49 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link href="css/hikaku.css" rel="stylesheet">
+    <script>
+        v1="<?=isset($_GET['v1']) && !empty($_GET['v1']) ? $_GET['v1'] : ''?>";
+        v2="<?=isset($_GET['v2']) && !empty($_GET['v2']) ? $_GET['v2'] : ''?>";
+
+        function firstPlay(data, num) {
+            if (first_play['video' + num]) {
+                if (data == YT.PlayerState.PLAYING) {
+                    video['video' + num].pauseVideo();
+//                    setTimeout(pauseVideo, 100);
+
+                } else if(data == YT.PlayerState.PAUSED){
+
+                    switch(num){
+                        case 1:
+                        <?php if(isset($_GET['v1o']) && !empty($_GET['v1o'])):?>
+                            video['video' + num].seekTo(<?=$_GET['v1o']?>, true);
+                        <?php endif;?>
+                            break;
+                        case 2:
+                        <?php if(isset($_GET['v2o']) && !empty($_GET['v2o'])):?>
+                            video['video' + num].seekTo(<?=$_GET['v2o']?>, true);
+                        <?php endif;?>
+                            break;
+                    }
+                    first_play['video' + num] = false;
+                }
+            }
+        }
+
+        function setShareUrl(){
+
+            v1 = $("#video_id1").val();
+            v2 = $("#video_id2").val();
+            v1o =video['video1'].getCurrentTime();
+            v2o =video['video2'].getCurrentTime();
+
+            url = 'http://<?=$_SERVER["HTTP_HOST"]?>/hikaku?v1o='+v1o+'&v2o='+v2o+'&v1='+v1+'&v2='+v2;
+            $("#share_url").val(url);
+        }
+    </script>
     <script src="js/video_control.js"></script>
     <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-9797989-2', 'auto');
-        ga('send', 'pageview');
-
-        <?php if(isset($_GET['L']) && isset($_GET['R'])):?>
-        //        $("#button1").trigger("click");
-        //        $("#button2").trigger("click");
-        <?php endif;?>
     </script>
 </head>
 <body>
@@ -60,16 +89,21 @@
             <div class="row">
                 <?php for($i=1; $i<=2; $i++):?>
                 <div class="panel col-md-5">
-                    動画<?=$i?>のID&nbsp;<input type="text" class="video_id" num="<?=$i?>" value="<?=isset($_GET['v'.$i]) ? $_GET['v'.$i] : ''?>" />
-                    <button class="button_load btn btn-default" id="button<?=$i?>"><i class="glyphicon glyphicon-download"></i> 読込</button>
-                    <br />
-                    <div id="player<?=$i?>" class="player"></div>
-                    <br />
-                    <button id="seek<?=$i?>prev2s" class="seekprev2s btn btn-default button_adjust" num="<?=$i?>"><i class="glyphicon glyphicon-backward"></i> -2.0秒</button>
-                    <button id="seek<?=$i?>prev" class="seekprev btn btn-default button_adjust" num="<?=$i?>"><i class="glyphicon glyphicon-backward"></i> -0.1秒</button>
-                    <span style="margin-left: 15px;"></span>
-                    <button id="seek<?=$i?>next" class="seeknext btn btn-default button_adjust" num="<?=$i?>">+0.1秒 <i class="glyphicon glyphicon-forward"></i></button>
-                    <button id="seek<?=$i?>next2s" class="seeknext2s btn btn-default button_adjust" num="<?=$i?>">+2.0秒 <i class="glyphicon glyphicon-forward"></i></button>
+                    <div class="movie_url">
+                        動画<?=$i?>のID&nbsp;<input type="text" class="video_id" num="<?=$i?>" id="video_id<?=$i?>" value="<?=isset($_GET['v'.$i]) ? $_GET['v'.$i] : ''?>" />
+                        <button class="button_load btn btn-default" id="button<?=$i?>"><i class="glyphicon glyphicon-download"></i> 読込</button>
+                    </div>
+
+                    <div id="player<?=$i?>" class="player">
+                    </div>
+
+                    <div class="video_navi">
+                        <button id="seek<?=$i?>prev2s" class="seekprev2s btn btn-default button_adjust" num="<?=$i?>"><i class="glyphicon glyphicon-backward"></i> -2.0秒</button>
+                        <button id="seek<?=$i?>prev" class="seekprev btn btn-default button_adjust" num="<?=$i?>"><i class="glyphicon glyphicon-backward"></i> -0.1秒</button>
+                        <span style="margin-left: 15px;"></span>
+                        <button id="seek<?=$i?>next" class="seeknext btn btn-default button_adjust" num="<?=$i?>">+0.1秒 <i class="glyphicon glyphicon-forward"></i></button>
+                        <button id="seek<?=$i?>next2s" class="seeknext2s btn btn-default button_adjust" num="<?=$i?>">+2.0秒 <i class="glyphicon glyphicon-forward"></i></button>
+                    </div>
                 </div>
                 <?php endfor;?>
             </div>
@@ -87,6 +121,10 @@
                     <button id="seeknext_a" class="button_player btn-default btn-lg" /><i class="glyphicon glyphicon-forward"></i> +0.1秒</button>
                     <button id="seeknext2s_a" class="button_player btn-default btn-lg" /><i class="glyphicon glyphicon-forward"></i> +2.0秒</button>
                 </div>
+            </div>
+
+            <div class="row share">
+                共有用リンク <input type="text" id="share_url" />
             </div>
         </div>
     </div>
