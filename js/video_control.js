@@ -130,40 +130,64 @@ function onPlayerStateChange1(event) {
     firstPlay(event.data, 1);
     setShareUrl();
     // setPlayButtonEnabled(1);
+    setPlayButtonStatus();
 }
 
 function onPlayerStateChange2(event) {
     firstPlay(event.data, 2);
     // setPlayButtonEnabled(2);
     setShareUrl();
+    setPlayButtonStatus();
 
 }
 
+/**
+ * 同時再生ボタンの表示
+ */
 
+function setPlayButtonStatus(){
+    for(i=1;i<=2;i++) {
+        console.log('v' + num + " status= " + video['video' + num].getPlayerState());
+    }
+   if(
+       video['video1'].getPlayerState() == YT.PlayerState.PAUSED
+       && video['video2'].getPlayerState() == YT.PlayerState.PAUSED
+   ) {
+       enableBtn("#play");
 
-//        function setPlayButtonEnabled(num){
-//            if(
-//                    video['video1'].getPlayerState() == YT.PlayerState.PAUSED
-//                    && video['video2'].getPlayerState() == YT.PlayerState.PAUSED
-//            ) {
-//                $("#play").prop('disable', false);
-//                alert('再生有効');
-//            } else {
-//                $("#play").prop('disable', true);
-//                alert('再生無効');
-//                if(
-//                        video['video1'].getPlayerState() == YT.PlayerState.PLAYING
-//                        || video['video2'].getPlayerState() == YT.PlayerState.PLAYING
-//                ) {
-//                    $("#pause").prop('disable', false);
-//                    alert('停止無効');
-//                } else {
-//                    $("#pause").prop('disable', true);
-//                    alert('停止有効');
-//                }
-//
-//            }
-//        }
+   } else {
+       disableBtn("#play");
+
+       if(
+               video['video1'].getPlayerState() == YT.PlayerState.PLAYING
+               || video['video2'].getPlayerState() == YT.PlayerState.PLAYING
+       ) {
+           enableBtn("#pause");
+       } else {
+           disableBtn("#pause");
+       }
+
+   }
+
+}
+
+/**
+ * ボタンを有効
+ * @param id
+ */
+function enableBtn(id){
+    $(id).removeAttr('disabled');
+    $(id).removeClass('disabled');
+}
+
+/**
+ * ボタンを無効
+ * @param id
+ */
+function disableBtn(id){
+    $(id).attr('disabled', true);
+    $(id).addClass('disabled');
+}
 
 /**
  * 同時再生

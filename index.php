@@ -120,16 +120,16 @@
 
             <div class="row">
                 <div class="control col-xs-12 col-sm-4 col-md-4">
-                    <button id="seekprev2s_a" class="button_player btn-default btn-lg" /><i class="glyphicon glyphicon glyphicon-backward"></i> -2.0秒</button>
-                    <button id="seekprev_a" class="button_player btn-default btn-lg" /><i class="glyphicon glyphicon glyphicon-backward"></i> -0.1秒</button>
+                    <button id="seekprev2s_a" class="btn button_player btn-default btn-lg" /><i class="glyphicon glyphicon glyphicon-backward"></i> -2.0秒</button>
+                    <button id="seekprev_a" class="btn button_player btn-default btn-lg" /><i class="glyphicon glyphicon glyphicon-backward"></i> -0.1秒</button>
                 </div>
                 <div class="control col-xs-12  col-sm-4 col-md-4">
-                    <button id="play" class="button_player btn-default btn-lg" /><i class="glyphicon glyphicon-play"></i> 再生</button>
-                    <button id="pause" class="button_player btn-default btn-lg" /><i class="glyphicon glyphicon-pause"></i> 停止</button>
+                    <button id="play" class="btn button_player btn-default btn-lg" /><i class="glyphicon glyphicon-play"></i> 再生</button>
+                    <button id="pause" class="btn button_player btn-default btn-lg" /><i class="glyphicon glyphicon-pause"></i> 停止</button>
                 </div>
                 <div class="control col-xs-12 col-sm-4 col-md-4">
-                    <button id="seeknext_a" class="button_player btn-default btn-lg" /><i class="glyphicon glyphicon-forward"></i> +0.1秒</button>
-                    <button id="seeknext2s_a" class="button_player btn-default btn-lg" /><i class="glyphicon glyphicon-forward"></i> +2.0秒</button>
+                    <button id="seeknext_a" class="btn button_player btn-default btn-lg" /><i class="glyphicon glyphicon-forward"></i> +0.1秒</button>
+                    <button id="seeknext2s_a" class="btn button_player btn-default btn-lg" /><i class="glyphicon glyphicon-forward"></i> +2.0秒</button>
                 </div>
             </div>
 
