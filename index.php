@@ -2,9 +2,10 @@
 <html lang="ja">
 <head>
     <meta charset="utf-8">
+    <title>比較動画メーカー(仮)</title>
+    <meta name="description" content="Youtubeの動画を2つ並べて再生します。同時コマ送り機能付きでモトジムカーナのコース走行動画の比較などにどうぞ。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>比較動画メーカー(仮)</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -91,10 +92,6 @@
             <h2>Youtube動画を2つ同時に再生して、比較動画っぽく表示してみます。</h2>
         </div>
 
-        <div class="loding">
-            ロード中...
-        </div>
-
         <div class="content">
             <div class="row">
                 <?php for($i=1; $i<=2; $i++):?>
@@ -136,6 +133,10 @@
             <div class="row share">
                 共有用リンク <input type="text" id="share_url" />
             </div>
+        </div>
+
+        <div class="loding">
+            ロード中...
         </div>
     </div>
 </body>
