@@ -38,8 +38,8 @@
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="./">ホーム</a></li>
                     <li class="active"><a href="#">使い方</a></li>
+                    <li><a href="https://github.com/okazbb/DoubleTube">Github</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
