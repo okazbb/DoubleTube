@@ -98,18 +98,21 @@
                 <div class="panel col-md-5">
                     <div class="movie_url">
                         動画<?=$i?>のID&nbsp;<input type="text" class="video_id" num="<?=$i?>" id="video_id<?=$i?>" value="<?=isset($_GET['v'.$i]) ? $_GET['v'.$i] : ''?>" />
-                        <button class="button_load btn btn-default" id="button<?=$i?>"><i class="glyphicon glyphicon-download"></i> 読込</button>
+                        <button class="button_load btn btn-default btn-sm " id="button<?=$i?>"><i class="glyphicon glyphicon-download"></i> 読込</button>
                     </div>
 
                     <div id="player<?=$i?>" class="player">
                     </div>
 
                     <div class="video_navi">
-                        <button id="seek<?=$i?>prev2s" class="seekprev2s btn btn-default button_adjust" num="<?=$i?>"><i class="glyphicon glyphicon-backward"></i> -2.0秒</button>
-                        <button id="seek<?=$i?>prev" class="seekprev btn btn-default button_adjust" num="<?=$i?>"><i class="glyphicon glyphicon-backward"></i> -0.1秒</button>
-                        <span style="margin-left: 15px;"></span>
-                        <button id="seek<?=$i?>next" class="seeknext btn btn-default button_adjust" num="<?=$i?>">+0.1秒 <i class="glyphicon glyphicon-forward"></i></button>
-                        <button id="seek<?=$i?>next2s" class="seeknext2s btn btn-default button_adjust" num="<?=$i?>">+2.0秒 <i class="glyphicon glyphicon-forward"></i></button>
+                        <button id="seek<?=$i?>prev2s" class="seekprev2s btn btn-default btn-xs button_adjust" num="<?=$i?>"><i class="glyphicon glyphicon-backward"></i> -2.0秒</button>
+                        <button id="seek<?=$i?>prev" class="seekprev btn btn-default btn-xs button_adjust" num="<?=$i?>"><i class="glyphicon glyphicon-backward"></i> -0.1秒</button>
+                        <span style="margin-left: 5px;"></span>
+                        <button id="play<?=$i?>" class="play btn btn-default btn-xs button_adjust" num="<?=$i?>"><i class="glyphicon glyphicon-play"></i> 再生</button>
+                        <button id="pause<?=$i?>" class="pause btn btn-default btn-xs button_adjust" num="<?=$i?>"><i class="glyphicon glyphicon-pause"></i> 停止</button>
+                        <span style="margin-left: 5px;"></span>
+                        <button id="seek<?=$i?>next" class="seeknext btn btn-default btn-xs button_adjust" num="<?=$i?>">+0.1秒 <i class="glyphicon glyphicon-forward"></i></button>
+                        <button id="seek<?=$i?>next2s" class="seeknext2s btn btn-default btn-xs button_adjust" num="<?=$i?>">+2.0秒 <i class="glyphicon glyphicon-forward"></i></button>
                     </div>
                 </div>
                 <?php endfor;?>

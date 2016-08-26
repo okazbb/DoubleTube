@@ -50,6 +50,30 @@ $(document).ready(function(){
         video['video'+num].seekTo(video['video'+num].getCurrentTime() + 2.0, true);
         setShareUrl();
     }),
+    $(".play").click(function(event) {
+        num = $(this).attr('num');
+        if(first_play['video' + num] == false){
+            if(video['video' + num].getPlayerState() == YT.PlayerState.PAUSED){
+                video['video' + num].playVideo();
+            }
+        }
+    }),
+    $(".pause").click(function(event) {
+        num = $(this).attr('num');
+        video['video'+num].pauseVideo();
+    }),
+
+    /**
+     * 同時停止
+     */
+    function pauseVideo() {
+        for(i=1; i<=2; i++){
+            video['video'+i].pauseVideo();
+        }
+        setShareUrl();
+    }
+
+
 
     $(".button_load").click(function(event){
         video_id = $(this).parent().find('.video_id');
