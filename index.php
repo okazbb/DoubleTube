@@ -40,14 +40,14 @@
         }
 
         function setShareUrl(){
+			if(first_play['video1'] || first_play['video2']) return;
+			v1 = $("#video_id1").val();
+			v2 = $("#video_id2").val();
+			v1o =video['video1'].getCurrentTime();
+			v2o =video['video2'].getCurrentTime();
 
-            v1 = $("#video_id1").val();
-            v2 = $("#video_id2").val();
-            v1o =video['video1'].getCurrentTime();
-            v2o =video['video2'].getCurrentTime();
-
-            url = 'http://<?=$_SERVER["HTTP_HOST"]?>/hikaku?v1o='+v1o+'&v2o='+v2o+'&v1='+v1+'&v2='+v2;
-            $("#share_url").val(url);
+			url = 'https://<?=$_SERVER["HTTP_HOST"]?>/hikaku?v1o='+v1o+'&v2o='+v2o+'&v1='+v1+'&v2='+v2;
+			$("#share_url").val(url);
         }
     </script>
     <script src="js/video_control.js"></script>
@@ -108,8 +108,7 @@
                         <button id="seek<?=$i?>prev2s" class="seekprev2s btn btn-default btn-xs button_adjust" num="<?=$i?>"><i class="glyphicon glyphicon-backward"></i> -2.0秒</button>
                         <button id="seek<?=$i?>prev" class="seekprev btn btn-default btn-xs button_adjust" num="<?=$i?>"><i class="glyphicon glyphicon-backward"></i> -0.1秒</button>
                         <span style="margin-left: 5px;"></span>
-                        <button id="play<?=$i?>" class="play btn btn-default btn-xs button_adjust" num="<?=$i?>"><i class="glyphicon glyphicon-play"></i> 再生</button>
-                        <button id="pause<?=$i?>" class="pause btn btn-default btn-xs button_adjust" num="<?=$i?>"><i class="glyphicon glyphicon-pause"></i> 停止</button>
+                        <button id="play<?=$i?>" class="play btn btn-default btn-xs button_adjust" num="<?=$i?>"><i id="control<?=$i?>"class="glyphicon glyphicon-play"></i> <span id="control-label<?=$i?>">再生</span></button>
                         <span style="margin-left: 5px;"></span>
                         <button id="seek<?=$i?>next" class="seeknext btn btn-default btn-xs button_adjust" num="<?=$i?>">+0.1秒 <i class="glyphicon glyphicon-forward"></i></button>
                         <button id="seek<?=$i?>next2s" class="seeknext2s btn btn-default btn-xs button_adjust" num="<?=$i?>">+2.0秒 <i class="glyphicon glyphicon-forward"></i></button>
@@ -124,8 +123,7 @@
                     <button id="seekprev_a" class="btn button_player btn-default btn-lg" /><i class="glyphicon glyphicon glyphicon-backward"></i> -0.1秒</button>
                 </div>
                 <div class="control col-xs-12  col-sm-4 col-md-4">
-                    <button id="play" class="btn button_player btn-default btn-lg" /><i class="glyphicon glyphicon-play"></i> 再生</button>
-                    <button id="pause" class="btn button_player btn-default btn-lg" /><i class="glyphicon glyphicon-pause"></i> 停止</button>
+                    <button id="play" class="btn button_player btn-default btn-lg" /><i id="control" class="glyphicon glyphicon-play"></i> <span id="control-label">再生</span></button>
                 </div>
                 <div class="control col-xs-12 col-sm-4 col-md-4">
                     <button id="seeknext_a" class="btn button_player btn-default btn-lg" /><i class="glyphicon glyphicon-forward"></i> +0.1秒</button>

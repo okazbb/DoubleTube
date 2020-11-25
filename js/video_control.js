@@ -1,9 +1,6 @@
 $(document).ready(function(){
     $("#play").click(function(event) {
-        startVideo();
-    }),
-    $("#pause").click(function(event) {
-        pauseVideo();
+        start_or_pause();
     }),
     $("#seekprev_a").click(function(event) {
         for(i=1; i<=2; i++) {
@@ -49,32 +46,27 @@ $(document).ready(function(){
         num = $(this).attr('num');
         video['video'+num].seekTo(video['video'+num].getCurrentTime() + 2.0, true);
         setShareUrl();
-    }),
-    $(".play").click(function(event) {
-        num = $(this).attr('num');
-        if(first_play['video' + num] == false){
-            if(video['video' + num].getPlayerState() == YT.PlayerState.PAUSED){
-                video['video' + num].playVideo();
-            }
+	}),
+	//再生
+	$(".play").click(function(event) {
+
+		num = $(this).attr('num');
+		if(first_play['video' + num] == false){
+			player_state = video['video' + num].getPlayerState();
+			switch(player_state){
+				case YT.PlayerState.PAUSED:
+					//再生状態へ
+					video['video' + num].playVideo();
+					break;
+					
+				case YT.PlayerState.PLAYING:
+				default:
+					//停止状態へ
+					video['video' + num].pauseVideo();
+			}
+
         }
     }),
-    $(".pause").click(function(event) {
-        num = $(this).attr('num');
-        video['video'+num].pauseVideo();
-    }),
-
-    /**
-     * 同時停止
-     */
-    function pauseVideo() {
-        for(i=1; i<=2; i++){
-            video['video'+i].pauseVideo();
-        }
-        setShareUrl();
-    }
-
-
-
     $(".button_load").click(function(event){
         video_id = $(this).parent().find('.video_id');
         if(video_id.val().trim() != ''){
@@ -152,16 +144,14 @@ function onPlayerReady2(event) {
 
 function onPlayerStateChange1(event) {
     firstPlay(event.data, 1);
-    setShareUrl();
-    // setPlayButtonEnabled(1);
-    setPlayButtonStatus();
+    setPlayButtonStatus(1);
+	setShareUrl();
 }
 
 function onPlayerStateChange2(event) {
     firstPlay(event.data, 2);
-    // setPlayButtonEnabled(2);
-    setShareUrl();
-    setPlayButtonStatus();
+    setPlayButtonStatus(2);
+	setShareUrl();
 
 }
 
@@ -169,72 +159,68 @@ function onPlayerStateChange2(event) {
  * 同時再生ボタンの表示
  */
 
-function setPlayButtonStatus(){
-    for(i=1;i<=2;i++) {
-        console.log('v' + num + " status= " + video['video' + num].getPlayerState());
-    }
-   if(
-       video['video1'].getPlayerState() == YT.PlayerState.PAUSED
-       && video['video2'].getPlayerState() == YT.PlayerState.PAUSED
-   ) {
-       enableBtn("#play");
+function setPlayButtonStatus(i){
 
-   } else {
-       disableBtn("#play");
+	//個別ボタン
+	player_status = video['video' + i].getPlayerState();
+	switch(player_status){
+		case YT.PlayerState.PAUSED:
+			$("#control" + i).removeClass('glyphicon-pause');
+			$("#control" + i).addClass('glyphicon-play');
+			$("#control-label" + i).text('再生');
+			
+			break;
+			
+		case YT.PlayerState.PLAYING:
+			$("#control" + i).removeClass('glyphicon-play');
+			$("#control" + i).addClass('glyphicon-pause');
+			$("#control-label" + i).text('停止');
 
-       if(
-               video['video1'].getPlayerState() == YT.PlayerState.PLAYING
-               || video['video2'].getPlayerState() == YT.PlayerState.PLAYING
-       ) {
-           enableBtn("#pause");
-       } else {
-           disableBtn("#pause");
-       }
+	}
 
-   }
-
+	//同時再生ボタン
+	if(first_play['video1'] || first_play['video2']) return;
+	if(
+		video['video1'].getPlayerState() == YT.PlayerState.PAUSED
+		&& video['video2'].getPlayerState() == YT.PlayerState.PAUSED
+	) {
+			$("#control").removeClass('glyphicon-pause');
+			$("#control").addClass('glyphicon-play');
+			$("#control-label").text('再生');
+	
+	} else {
+	
+		if(
+				video['video1'].getPlayerState() == YT.PlayerState.PLAYING
+				|| video['video2'].getPlayerState() == YT.PlayerState.PLAYING
+		) {
+				$("#control").removeClass('glyphicon-play');
+				$("#control").addClass('glyphicon-pause');
+				$("#control-label").text('停止');
+	
+		}
+	
+	}
 }
 
 /**
- * ボタンを有効
- * @param id
+ * 同時再生・停止
  */
-function enableBtn(id){
-    $(id).removeAttr('disabled');
-    $(id).removeClass('disabled');
-}
-
-/**
- * ボタンを無効
- * @param id
- */
-function disableBtn(id){
-    $(id).attr('disabled', true);
-    $(id).addClass('disabled');
-}
-
-/**
- * 同時再生
- */
-function startVideo(){
-    if((first_play['video1'] && first_play['video2']) == false){
-        if(
-            video['video1'].getPlayerState() == YT.PlayerState.PAUSED
-            && video['video2'].getPlayerState() == YT.PlayerState.PAUSED
-        ) {
-            video['video1'].playVideo();
-            video['video2'].playVideo();
-        }
-
-    }
-}
-
-/**
- * 同時停止
- */
-function pauseVideo() {
-    for(i=1; i<=2; i++){
-        video['video'+i].pauseVideo();
-    }
-    setShareUrl();
+function start_or_pause(){
+    if(first_play['video1'] || first_play['video2']) return;
+	
+	if(
+		video['video1'].getPlayerState() == YT.PlayerState.PAUSED
+		&& video['video2'].getPlayerState() == YT.PlayerState.PAUSED
+	) {
+		//両方停止なら再生
+		video['video1'].playVideo();
+		video['video2'].playVideo();
+		
+	} else {
+		//再生中なら停止
+		video['video1'].pauseVideo();
+		video['video2'].pauseVideo();
+		setShareUrl();
+	}
 }
