@@ -75,17 +75,25 @@
         $("#load").click(function(event){
             
             source = $('#source').val();
-            console.log(source);
-            
-            playerObject = new YT.Player('player', {
-                height: 640,
-                width: 480,
-                videoId: source,
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onStateChange
-                }
-            });
+            // console.log(source);
+
+            if(!playerObject){
+                //初回
+                playerObject = new YT.Player('player', {
+                    height: 640,
+                    width: 480,
+                    videoId: source,
+                    events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': onStateChange
+                    }
+                });
+
+            } else {
+                //動画変更
+                playerObject.clearVideo();
+                playerObject.cueVideoById(source); //loadVideoByIDは再生もセット
+            }
         }),
         /**
          * コマ送りボタン
