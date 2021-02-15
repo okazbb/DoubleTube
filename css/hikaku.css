@@ -34,9 +34,8 @@ body {
     margin         : auto;
     box-sizing     : border-box;          
     border: solid 1px;
-    padding-bottom: 50%;
-    left: 0;
-    top: 0;    
+    
+    
     background-color: #000000;
 }
 
