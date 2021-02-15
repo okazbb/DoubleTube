@@ -71,30 +71,42 @@ $(document).ready(function(){
         video_id = $(this).parent().find('.video_id');
         if(video_id.val().trim() != ''){
             num = video_id.attr('num');
-            switch(num){
-                case '1':
-                    video['video'+num] = null;
-                    video['video'+num] = new YT.Player('player'+num, {
-                        height: '390',
-                        width: '640',
-                        videoId: video_id.val(),
-                        events: {
-                            'onReady': onPlayerReady1,
-                            'onStateChange': onPlayerStateChange1
-                        }
-                    });
-                    break;
-                case '2':
-                    video['video'+num] = new YT.Player('player'+num, {
-                        height: '390',
-                        width: '640',
-                        videoId: video_id.val(),
-                        events: {
-                            'onReady': onPlayerReady2,
-                            'onStateChange': onPlayerStateChange2
-                        }
-                    });
-                    break;
+
+            if(video['video'+num]){
+
+                video['video'+num].clearVideo();
+                first_play['video'+num] = true;
+                video['video'+num].cueVideoById(video_id.val());
+                video['video'+num].playVideo();
+                // video['video'+num].pauseVideo();
+
+            } else {
+
+                switch(num){
+                    case '1':
+                        video['video'+num] = null;
+                        video['video'+num] = new YT.Player('player'+num, {
+                            height: '390',
+                            width: '640',
+                            videoId: video_id.val(),
+                            events: {
+                                'onReady': onPlayerReady1,
+                                'onStateChange': onPlayerStateChange1
+                            }
+                        });
+                        break;
+                    case '2':
+                        video['video'+num] = new YT.Player('player'+num, {
+                            height: '390',
+                            width: '640',
+                            videoId: video_id.val(),
+                            events: {
+                                'onReady': onPlayerReady2,
+                                'onStateChange': onPlayerStateChange2
+                            }
+                        });
+                        break;
+                }
             }
         }
     })
