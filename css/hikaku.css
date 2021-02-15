@@ -34,8 +34,7 @@ body {
     margin         : auto;
     box-sizing     : border-box;          
     border: solid 1px;
-    
-    
+    width: 100%;
     background-color: #000000;
 }
 
