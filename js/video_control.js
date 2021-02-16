@@ -81,10 +81,12 @@ $(document).ready(function(){
 function onYouTubePlayerAPIReady() {
 
     for(i = 1; i <=2; i++){
+        sec_w = $("#player" + i).width();
+        sec_h = sec_w * 0.57;
+
         playerObject[i] = new YT.Player('player' + i, { // playerはiframeに置き換えるdivタグのid
-            // サイズ指定無しで要素にフィットする
-            // height: '360', // プレイヤーの高さ
-            // width: '640', // プレイヤーの幅
+            height: sec_h, // プレイヤーの高さ
+            width: sec_w, // プレイヤーの幅
             playerVars: {
                 'rel': 0,
                 'showinfo': 0,
