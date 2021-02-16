@@ -4,6 +4,16 @@
     <meta charset="utf-8">
     <title>比較動画メーカー(仮) V2.0</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        videoIdParam = {
+            1: '<?=isset($_GET['v1']) && !empty($_GET['v1']) ? $_GET['v1'] : ''?>',
+            2: '<?=isset($_GET['v2']) && !empty($_GET['v2']) ? $_GET['v2'] : ''?>'
+        }
+        videoOffsetParam = {
+            1: <?=isset($_GET['v1o']) && !empty($_GET['v1o']) ? $_GET['v1o'] : '0'?>,
+            2: <?=isset($_GET['v2o']) && !empty($_GET['v2o']) ? $_GET['v2o'] : '0'?>
+        }
+    </script>
     <script src="js/video_control.js"></script>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/hikaku.css" rel="stylesheet">
@@ -17,7 +27,7 @@
         <button id="load<?=$i?>" class="load btn info_btn" index="<?=$i?>"><i class="glyphicon glyphicon-search"></i></button>
     </div>
 
-    <div id="player<?=$i?>" class="player"> 
+    <div id="player<?=$i?>" class="player" index="<?=$i?>"> 
         <!-- video<?=$i?> -->
     </div>
 

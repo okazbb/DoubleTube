@@ -67,9 +67,8 @@ $(document).ready(function(){
             }
         }
         autoPlay[index] = true;
-        playerObject[index].cueVideoById(videoId); //loadVideoByIDは再生もセット
-        
-        $("#play" + index).prop('disabled', false);   
+        playerObject[index].cueVideoById(videoId);
+
     }),
     /**
      * コマ送りボタン
@@ -85,7 +84,6 @@ $(document).ready(function(){
      */
     $(".seek-comm").click(function(event) {
         t = parseFloat($(this).data('sec'));
-        // console.log($(this).data('sec'));
 
         for(i = 1; i <= 2; i++){
             playerObject[i].seekTo(playerObject[i].getCurrentTime() + t, true);
@@ -104,20 +102,25 @@ function onYouTubePlayerAPIReady() {
         sec_w = $("#player" + i).width();
         sec_h = sec_w * 0.57;
         $("#player" + i).height(sec_h);
-    
-        playerObject[i] = new YT.Player('player' + i, { // playerはiframeに置き換えるdivタグのid
-            height: sec_h, // プレイヤーの高さ
-            width: sec_w, // プレイヤーの幅
-            playerVars: {
-                'rel': 0,
-                'showinfo': 0,
-                'autoplay': 0
-            },            
-            events:{
-                'onError': onPlayerError,
-                'onStateChange': onStateChange,
-            }
-        });
+
+        playerObject[i] = new YT.Player(
+            'player' + i, 
+            { // playerはiframeに置き換えるdivタグのid
+                height: sec_h, // プレイヤーの高さ
+                width: sec_w, // プレイヤーの幅
+                // videoId: videoIdParam[i],
+                playerVars: {
+                    'rel': 0,
+                    'showinfo': 0,
+                    'autoplay': 0
+                },            
+                events:{
+                    'onError': onPlayerError,
+                    'onStateChange': onStateChange,
+                    'onReady': onPlayerReady,
+                }
+            });
+
     }  
 }
 
@@ -133,57 +136,63 @@ function onPlayerError(event){
  * ロード完了
  */
 function onPlayerReady(event) {
-    // $(".control").prop('disabled', false);
-    checkSeekButtonProp();
+    
+    dom =event.target.getIframe();
+    i = dom.getAttribute('index');
+
+    if(videoIdParam[i] != ''){
+        autoPlay[i] = true;
+        playerObject[i].cueVideoById(
+            videoIdParam[i],
+            videoOffsetParam[i]
+        );        
+    }
 }
 
 /**
  * 再生ステータスに応じてボタン状態を変更
  */
-function changePlayButtonStatus(){
-    state = {1:null, 2:null};
-    for(i = 1; i<= 2; i++){
-        state[i] = playerObject[i].getPlayerState();
+function changePlayButtonStatus(i){
 
-        switch(state[i]){
-            case YT.PlayerState.CUED:
-                if(autoPlay[i]){
-                    //自動再生
-                    playerObject[i].playVideo();
-                }
-                break;
+    state = playerObject[i].getPlayerState();
+    
+    switch(state){
+        case 3: //バッファリング中
+            break;
 
-            case YT.PlayerState.PLAYING:
-                //再生中は中央ボタンを停止ボタンに
-                $(".playIcon" + i).removeClass('glyphicon-play'); 
-                $(".playIcon" + i).addClass('glyphicon-pause');
+        case -1: //未開始
 
-                if(autoPlay[i]){
-                    //自動再生時は停止後にフラグオフ
-                    playerObject[i].pauseVideo();
-                    autoPlay[i] = false;
-                }
-                break;
+        case YT.PlayerState.CUED: //5
+            $('#source' + i).val(playerObject[i].getVideoUrl());
+            if(autoPlay[i]){
+                //自動再生
+                playerObject[i].playVideo();
+            }
+            $("#play" + i).prop('disabled', false);   
+            break;
 
-            case YT.PlayerState.PAUSED:
-                //一時停止中は中央ボタンを再生ボタンに
-                $(".playIcon" + i).removeClass('glyphicon-pause');
-                $(".playIcon" + i).addClass('glyphicon-play');
-                setShareUrl();
-                break; 
-        }
+        case YT.PlayerState.PLAYING: //1
+            //再生中は中央ボタンを停止ボタンに
+            $(".playIcon" + i).removeClass('glyphicon-play'); 
+            $(".playIcon" + i).addClass('glyphicon-pause');
+
+            if(autoPlay[i]){
+                //自動再生時は停止後にフラグオフ
+                autoPlay[i] = false;
+                playerObject[i].pauseVideo();
+                
+            }
+            break;
+
+        case YT.PlayerState.PAUSED: //2
+            //一時停止中は中央ボタンを再生ボタンに
+            $(".playIcon" + i).removeClass('glyphicon-pause');
+            $(".playIcon" + i).addClass('glyphicon-play');
+            setShareUrl();
+            break; 
     }
+    
 
-    if(state[1] == YT.PlayerState.PAUSED && state[2] == YT.PlayerState.PAUSED){
-        //両方停止
-        $(".playIcon-comm").removeClass('glyphicon-pause');
-        $(".playIcon-comm").addClass('glyphicon-play');
-
-    } else if(state[1] == YT.PlayerState.PLAYING || state[2] == YT.PlayerState.PLAYING){
-        //どちらかが再生
-        $(".playIcon-comm").removeClass('glyphicon-play');
-        $(".playIcon-comm").addClass('glyphicon-pause');
-    }
     
     // YT.PlayerState
     // -1 – 未開始
@@ -200,8 +209,10 @@ function changePlayButtonStatus(){
  */
 function onStateChange(event) {
     
-    index = $(this).attr('index');
-    changePlayButtonStatus();
+    dom =event.target.getIframe();
+    i = dom.getAttribute('index');
+
+    changePlayButtonStatus(i);
     checkSeekButtonProp();
     // togglePlayButton(index);
 }
@@ -240,9 +251,12 @@ function togglePlayButton(index, stop = false){
  */
 function checkSeekButtonProp(){
 
-    state1 = playerObject[1].getPlayerState();
-    state2 = playerObject[2].getPlayerState();
-
+    if(playerObject[1]){
+        state1 = playerObject[1].getPlayerState();
+    }
+    if(playerObject[2]){
+        state2 = playerObject[2].getPlayerState();
+    }
     //一時停止中ならコマ送りを使用可
     $(".seek1").prop('disabled', !(state1 == YT.PlayerState.PAUSED));   
     $(".seek2").prop('disabled', !(state2 == YT.PlayerState.PAUSED));
@@ -251,13 +265,22 @@ function checkSeekButtonProp(){
         //両方停止
         $(".seek-comm").prop('disabled', false);
         $("#play-comm").prop('disabled', false);
-    }
-    if(state1 == YT.PlayerState.PLAYING && state2 == YT.PlayerState.PLAYING){
-        //両方再生
-        $(".seek-comm").prop('disabled', true);
-        $("#play-comm").prop('disabled', false);
+        $(".playIcon-comm").removeClass('glyphicon-pause');
+        $(".playIcon-comm").addClass('glyphicon-play');
+
     }
     
+    if(state1 == YT.PlayerState.PLAYING || state2 == YT.PlayerState.PLAYING){
+        if(state1 == YT.PlayerState.PLAYING && state2 == YT.PlayerState.PLAYING){
+            //両方再生
+            $(".seek-comm").prop('disabled', true);
+            $("#play-comm").prop('disabled', false);
+        } else {
+            //どちらかが再生
+            $(".playIcon-comm").removeClass('glyphicon-play');
+            $(".playIcon-comm").addClass('glyphicon-pause');
+        }
+    }
 }
 
 /**
