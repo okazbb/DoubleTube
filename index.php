@@ -12,7 +12,7 @@
 <?php include('setting.php');?>
 <?php for($i = 1; $i <=2 ; $i++):?>
 <div id="window<?=$i?>" class="window">
-    <div class="info">
+    <div id="info<?=$i?>" class="info">
         <input type="text" id="source<?=$i?>" value="<?=$CONST_DEFAULT_URL[$i]?>"  class="url" placeholder="Youtube Video URL"　/>
         <button id="load<?=$i?>" class="load btn info_btn" index="<?=$i?>"><i class="glyphicon glyphicon-search"></i></button>
     </div>
@@ -21,7 +21,7 @@
         <!-- video<?=$i?> -->
     </div>
 
-    <div class="control">
+    <div id="control<?=$i?>" class="control">
         <button id="seek<?=$i?>-1" class="seek seek<?=$i?> btn seek_btn" index="<?=$i?>" data-sec="-2"><i class="glyphicon glyphicon-backward"></i>&nbsp;2s</button>
         <button id="seek<?=$i?>-2" class="seek seek<?=$i?> btn seek_btn" index="<?=$i?>" data-sec="-1"><i class="glyphicon glyphicon-backward"></i>&nbsp;1s</button>
         <button id="seek<?=$i?>-3" class="seek seek<?=$i?> btn seek_btn" index="<?=$i?>" data-sec="-0.1"><i class="glyphicon glyphicon-backward"></i>&nbsp;0.1s</button>
@@ -34,7 +34,7 @@
     </div>
 </div>
 <?php endfor;?>
-<div class="dual-control">
+<div id="dual-control" class="clearfix">
         <button id="seek-comm-1" class="seek-comm btn common_seek_btn" index="0" data-sec="-2"><i class="glyphicon glyphicon-backward"></i>&nbsp;2s</button>
         <button id="seek-comm-2" class="seek-comm btn common_seek_btn" index="0" data-sec="-1"><i class="glyphicon glyphicon-backward"></i>&nbsp;1s</button>
         <button id="seek-comm-3" class="seek-comm btn common_seek_btn" index="0" data-sec="-0.1"><i class="glyphicon glyphicon-backward"></i>&nbsp;0.1s</button>
@@ -46,9 +46,9 @@
         <button id="seek-comm-6" class="seek-comm btn common_seek_btn" index="0" data-sec="+2">2s&nbsp;<i class="glyphicon glyphicon-forward"></i></button>
 </div>
 
-<div class="footer">
-    
+<div id="footer">
     <ul>
+        <li><input type="text" id="share_url" value="" placeholder="Share URL" /></input></li>
         <li>比較動画メーカー(仮)</li>
         <li><a href="https://github.com/okazbb/DoubleTube"><img src="image/github-icon.png"></a></li>
         <li><a href="https://twitter.com/okazbb"><img src="image/twitter-icon.png"></a></li>

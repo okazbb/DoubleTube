@@ -100,7 +100,7 @@ body {
     color: #999da6;
 }
 
-.dual-control {
+#dual-control {
     margin         : auto;
     box-sizing     : border-box;
     border: 1px solid #2a2a2a;          
@@ -111,8 +111,16 @@ body {
 
 }
 
-.footer {
-    
+#share_url {
+    width:60%;
+    margin-right: 5%;
+    padding: 5px;
+    background-color: #131313;
+    border: 1px solid #2a2a2a;
+    color: #6f6f6f;
+}
+
+#footer {
     display: inline;
     width: 100%;
     height: 120px; 
@@ -123,6 +131,12 @@ body {
     bottom: 0; /*下に固定*/
 }
 
-.footer li {
-        display: inline;
+#footer li {
+    display: inline;
+}
+
+.clearfix::after {
+	content: "";
+	display: block;
+	clear: both;
 }

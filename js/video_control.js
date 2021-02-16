@@ -1,18 +1,12 @@
 /**
  * player
  */
-var playerObject = {
-    1: null,
-    2: null
-};
+var playerObject = {1: null,　2: null};
 
 /**
  * 自動再生フラグ
  */
-var autoPlay = {
-    1: false,
-    2: false
-}
+var autoPlay = {1: false,2: false}
 
 /**
  * YoutubeAPI
@@ -22,6 +16,9 @@ tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
+/**
+ * ready
+ */
 $(document).ready(function(){  
     $(".play").prop('disabled', true);
     $(".seek1").prop('disabled', true);   
@@ -35,7 +32,7 @@ $(document).ready(function(){
     $(".play").click(function(event) {
         
         index = $(this).attr('index');
-        controlButton(index);
+        togglePlayButton(index);
 
     }),
     /**
@@ -46,11 +43,11 @@ $(document).ready(function(){
         state2 = playerObject[2].getPlayerState();
     
         if(state1 == state2){
-            controlButton(1);
-            controlButton(2);
+            togglePlayButton(1);
+            togglePlayButton(2);
         } else {
-            controlButton(1, true);
-            controlButton(2, true);
+            togglePlayButton(1, true);
+            togglePlayButton(2, true);
         }
     }),
     /**
@@ -81,6 +78,7 @@ $(document).ready(function(){
         index = $(this).attr('index');
         t = parseFloat($(this).data('sec'));
         playerObject[index].seekTo(playerObject[index].getCurrentTime() + t, true);
+        setShareUrl();
     }),
     /**
      * 共通コマ送りボタン
@@ -92,6 +90,7 @@ $(document).ready(function(){
         for(i = 1; i <= 2; i++){
             playerObject[i].seekTo(playerObject[i].getCurrentTime() + t, true);
         }
+        setShareUrl();
     })
 }); 
 
@@ -135,13 +134,13 @@ function onPlayerError(event){
  */
 function onPlayerReady(event) {
     // $(".control").prop('disabled', false);
-    checkSeekProp();
+    checkSeekButtonProp();
 }
 
 /**
  * 再生ステータスに応じてボタン状態を変更
  */
-function changePlayButton(){
+function changePlayButtonStatus(){
     state = {1:null, 2:null};
     for(i = 1; i<= 2; i++){
         state[i] = playerObject[i].getPlayerState();
@@ -170,10 +169,10 @@ function changePlayButton(){
                 //一時停止中は中央ボタンを再生ボタンに
                 $(".playIcon" + i).removeClass('glyphicon-pause');
                 $(".playIcon" + i).addClass('glyphicon-play');
+                setShareUrl();
                 break; 
         }
     }
-
 
     if(state[1] == YT.PlayerState.PAUSED && state[2] == YT.PlayerState.PAUSED){
         //両方停止
@@ -202,16 +201,17 @@ function changePlayButton(){
 function onStateChange(event) {
     
     index = $(this).attr('index');
-    changePlayButton();
-    checkSeekProp();
+    changePlayButtonStatus();
+    checkSeekButtonProp();
+    // togglePlayButton(index);
 }
 
 /**
- * 再生制御
- * @param {}} index 
- * @param {*} stop  true指定時は停止状態にする
- */
-function controlButton(index, stop = false){
+ * 再生ボタン切替
+ * @param index 
+ * @param stop true指定時は停止状態にする
+ */ 
+function togglePlayButton(index, stop = false){
 
     player_status = playerObject[index].getPlayerState();
 
@@ -238,7 +238,7 @@ function controlButton(index, stop = false){
 /**
  * コマ送りボタン使用不可制御
  */
-function checkSeekProp(){
+function checkSeekButtonProp(){
 
     state1 = playerObject[1].getPlayerState();
     state2 = playerObject[2].getPlayerState();
@@ -260,4 +260,35 @@ function checkSeekProp(){
     
 }
 
+/**
+ * 共有用リンク更新
+ */
+function setShareUrl(){
+    if(playerObject[1].getPlayerState() != YT.PlayerState.PAUSED){
+        return;
+    } 
+    if(playerObject[2].getPlayerState() != YT.PlayerState.PAUSED){
+        return;
+    } 
+    
+    videoId = {};
+    videoOffset = {};
 
+    for(i = 1; i <= 2; i++){
+        if(!playerObject[i]) continue; 
+        u = new URL(playerObject[i].getVideoUrl());
+        videoId[i] = u.searchParams.get('v');
+
+        w = playerObject[i].getCurrentTime();
+        w = w * 100;
+        w = Math.round(w)
+        videoOffset[i] = w / 100;
+    }
+    
+    url = new URL(location.href);
+    for(i = 1; i <=2; i++){
+        url.searchParams.set('v'+i, videoId[i]);
+        url.searchParams.set('v'+i+'o', videoOffset[i])
+    }
+    $("#share_url").val(url.href);
+}
