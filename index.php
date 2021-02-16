@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+<?php include_once('setting.php');?>
 <head>
     <meta charset="utf-8">
     <title>比較動画メーカー(仮) V2.0</title>
@@ -17,9 +18,12 @@
     <script src="js/video_control.js"></script>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/hikaku.css" rel="stylesheet">
+    <?php
+    if($CONST_USE_ANALYTICS){
+        include_once('analytics.php');
+    }?>
 </head>
 <body>
-<?php include('setting.php');?>
 <?php for($i = 1; $i <=2 ; $i++):?>
 <div id="window<?=$i?>" class="window">
     <div id="info<?=$i?>" class="info">

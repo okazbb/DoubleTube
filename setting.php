@@ -5,8 +5,10 @@
 
  //初期表示URL
  $CONST_DEFAULT_URL = array(
-     1 => '',
-     2 => '',
+    1 => '',
+    2 => '',
  );
 
+ $CONST_USE_ANALYTICS = false;
+ $CONST_ANALYTICS_ID = '';
 ?>
