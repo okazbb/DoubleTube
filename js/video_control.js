@@ -23,6 +23,11 @@ var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 $(document).ready(function(){  
+    $(".play").prop('disabled', true);
+    $(".seek1").prop('disabled', true);   
+    $(".seek2").prop('disabled', true);
+    $(".seek-comm").prop('disabled', true);
+
     /**
      * 再生ボタン
      */
@@ -60,7 +65,8 @@ $(document).ready(function(){
         }
         autoPlay[index] = true;
         playerObject[index].cueVideoById(videoId); //loadVideoByIDは再生もセット
-
+        
+        $("#play" + index).prop('disabled', false);   
     }),
     /**
      * コマ送りボタン
@@ -83,7 +89,8 @@ function onYouTubePlayerAPIReady() {
     for(i = 1; i <=2; i++){
         sec_w = $("#player" + i).width();
         sec_h = sec_w * 0.57;
-
+        $("#player" + i).height(sec_h);
+    
         playerObject[i] = new YT.Player('player' + i, { // playerはiframeに置き換えるdivタグのid
             height: sec_h, // プレイヤーの高さ
             width: sec_w, // プレイヤーの幅
@@ -97,8 +104,7 @@ function onYouTubePlayerAPIReady() {
                 'onStateChange': onStateChange,
             }
         });
-    }
-    
+    }  
 }
 
 /**
@@ -113,7 +119,8 @@ function onPlayerError(event){
  * ロード完了
  */
 function onPlayerReady(event) {
-    $(".control").prop('disabled', false);
+    // $(".control").prop('disabled', false);
+    checkSeekProp();
 }
 
 /**
@@ -128,6 +135,7 @@ function onStateChange(event) {
     player_status = playerObject[index].getPlayerState();
 
 //    console.log('state='+player_status);
+    checkSeekProp();
 
     //再生ステータスに応じてボタン状態を変更する
     switch(player_status){
@@ -142,8 +150,6 @@ function onStateChange(event) {
             //再生中は中央ボタンを停止ボタンに
             $(".playIcon" + index).removeClass('glyphicon-play'); 
             $(".playIcon" + index).addClass('glyphicon-pause');
-            //再生中はコマ送り使用不可
-            $(".seek").prop('disabled', true);
 
             if(autoPlay[index]){
                 //自動再生時は停止後にフラグオフ
@@ -156,11 +162,7 @@ function onStateChange(event) {
             //一時停止中は中央ボタンを再生ボタンに
             $(".playIcon" + index).removeClass('glyphicon-pause');
             $(".playIcon" + index).addClass('glyphicon-play');
-            //一時停止中はコマ送りを使用可能に
-            $(".seek").prop('disabled', false);
-
-        default:
-            //$(".play").text('再生');	   
+            break; 
     }
 
     // YT.PlayerState
@@ -195,6 +197,23 @@ function controlButton(index){
             playerObject[index].playVideo();
             
     }
+}
+
+/**
+ * コマ送りボタン使用不可制御
+ */
+function checkSeekProp(){
+
+    state1 = playerObject[1].getPlayerState();
+    state2 = playerObject[2].getPlayerState();
+
+    //一時停止中ならコマ送りを使用可
+    $(".seek1").prop('disabled', !(state1 == YT.PlayerState.PAUSED));   
+    $(".seek2").prop('disabled', !(state2 == YT.PlayerState.PAUSED));
+
+    //どちらかが再生中なら共通は使用不可
+    $(".seek-comm").prop('disabled', !(state1 == YT.PlayerState.PAUSED && state2 == YT.PlayerState.PAUSED));
+    $("#play-comm").prop('disabled', !(state1 == YT.PlayerState.PAUSED && state2 == YT.PlayerState.PAUSED));
 }
 
 
