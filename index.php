@@ -13,7 +13,7 @@
 <?php for($i = 1; $i <=2 ; $i++):?>
 <div id="window<?=$i?>" class="window">
     <div class="info">
-        <input type="text" id="source<?=$i?>" value="<?=$CONST_DEFAULT_URL[$i]?>"  class="url" placeholder="Youtube Video URL or ID "　/>
+        <input type="text" id="source<?=$i?>" value="<?=$CONST_DEFAULT_URL[$i]?>"  class="url" placeholder="Youtube Video URL"　/>
         <button id="load<?=$i?>" class="load btn info_btn" index="<?=$i?>"><i class="glyphicon glyphicon-search"></i></button>
     </div>
 
