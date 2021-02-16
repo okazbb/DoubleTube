@@ -22,30 +22,6 @@ tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-/**
- * 再生
- * @param {} index 
- */
-function controlButton(index){
-
-    player_status = playerObject[index].getPlayerState();
-    // console.log(player_status);
-
-    switch(player_status){
-        case YT.PlayerState.PLAYING:
-            playerObject[index].pauseVideo();
-            break;
-        
-        case YT.PlayerState.ENDED:
-            playerObject[index].seekTo(0);
-            playerObject[index].playVideo();
-            break;
-
-        default:
-            playerObject[index].playVideo();
-            
-    }
-}
 $(document).ready(function(){  
     /**
      * 再生ボタン
@@ -67,13 +43,13 @@ $(document).ready(function(){
     $(".load").click(function(event){
         
         index = $(this).attr('index');
-        console.log(index);
+        // console.log(index);
 
         sourceUrl = $('#source' + index).val();
-        console.log(sourceUrl);
+        // console.log(sourceUrl);
 
         videoId = sourceUrl.split('v=')[1];
-        console.log(videoId);
+        // console.log(videoId);
 
         if(videoId){
             // クエリパラメータ除去
@@ -91,7 +67,8 @@ $(document).ready(function(){
      */
     $(".seek").click(function(event) {
         index = $(this).attr('index');
-        console.log($(this).data('sec'));
+        // console.log($(this).data('sec'));
+
         t = parseFloat($(this).data('sec'));
         playerObject[index].seekTo(playerObject[index].getCurrentTime() + t, true);
     })
@@ -99,24 +76,26 @@ $(document).ready(function(){
 
 /**
  * API初期設定
+ * @see <a href="https://developers.google.com/youtube/player_parameters.html?playerVersion=HTML5&hl=ja">IFrame Player API Params</a>
  */
 function onYouTubePlayerAPIReady() {
-    playerObject[1] = new YT.Player('player1', { // playerはiframeに置き換えるdivタグのid
-                // height: '360', // プレイヤーの高さ
-                // width: '640', // プレイヤーの幅
-                events:{
-                    'onError': onPlayerError,
-                    'onStateChange': onStateChange,
-                }
+
+    for(i = 1; i <=2; i++){
+        playerObject[i] = new YT.Player('player' + i, { // playerはiframeに置き換えるdivタグのid
+            // サイズ指定無しで要素にフィットする
+            // height: '360', // プレイヤーの高さ
+            // width: '640', // プレイヤーの幅
+            playerVars: {
+                'rel': 0,
+                'showinfo': 0,
+                'autoplay': 0
+            },            
+            events:{
+                'onError': onPlayerError,
+                'onStateChange': onStateChange,
+            }
         });
-    playerObject[2] = new YT.Player('player2', { // playerはiframeに置き換えるdivタグのid
-        // height: '360', // プレイヤーの高さ
-        // width: '640', // プレイヤーの幅
-        events:{
-            'onError': onPlayerError,
-            'onStateChange': onStateChange,
-        }
-    });
+    }
     
 }
 
@@ -143,7 +122,7 @@ function onStateChange(event) {
     index = $(this).attr('index');
 
     // console.log('index='+index);
-    console.dir(event);
+    // console.dir(event);
     player_status = playerObject[index].getPlayerState();
 
 //    console.log('state='+player_status);
@@ -189,6 +168,31 @@ function onStateChange(event) {
     // 2 – 一時停止 YT.PlayerState.PAUSED
     // 3 – バッファリング中 YT.PlayerState.BUFFERING
     // 5 – 頭出し済み YT.PlayerState.CUED
+}
+
+/**
+ * 再生
+ * @param {} index 
+ */
+function controlButton(index){
+
+    player_status = playerObject[index].getPlayerState();
+    // console.log(player_status);
+
+    switch(player_status){
+        case YT.PlayerState.PLAYING:
+            playerObject[index].pauseVideo();
+            break;
+        
+        case YT.PlayerState.ENDED:
+            playerObject[index].seekTo(0);
+            playerObject[index].playVideo();
+            break;
+
+        default:
+            playerObject[index].playVideo();
+            
+    }
 }
 
 
