@@ -1,6 +1,14 @@
+<?php
+include_once('setting.php');
+if($CONST_USE_HTTP_REDIRECT){
+    if (empty($_SERVER['HTTPS']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] != 'https') {
+        header("Location: https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+        exit();
+    }   
+}
+?>
 <!DOCTYPE html>
 <html lang="ja">
-<?php include_once('setting.php');?>
 <head>
     <meta charset="utf-8">
     <title>比較動画メーカー(仮) V2.0</title>

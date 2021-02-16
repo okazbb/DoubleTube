@@ -11,4 +11,6 @@
 
  $CONST_USE_ANALYTICS = false;
  $CONST_ANALYTICS_ID = '';
+
+ $CONST_USE_HTTP_REDIRECT = false;
 ?>
