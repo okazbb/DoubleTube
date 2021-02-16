@@ -35,15 +35,15 @@
 </div>
 <?php endfor;?>
 <div class="dual-control">
-        <button id="seek-comm-1" class="seek seek-comm btn common_seek_btn" index="0" data-sec="-2"><i class="glyphicon glyphicon-backward"></i>&nbsp;2s</button>
-        <button id="seek-comm-2" class="seek seek-comm btn common_seek_btn" index="0" data-sec="-1"><i class="glyphicon glyphicon-backward"></i>&nbsp;1s</button>
-        <button id="seek-comm-3" class="seek seek-comm btn common_seek_btn" index="0" data-sec="-0.1"><i class="glyphicon glyphicon-backward"></i>&nbsp;0.1s</button>
+        <button id="seek-comm-1" class="seek-comm btn common_seek_btn" index="0" data-sec="-2"><i class="glyphicon glyphicon-backward"></i>&nbsp;2s</button>
+        <button id="seek-comm-2" class="seek-comm btn common_seek_btn" index="0" data-sec="-1"><i class="glyphicon glyphicon-backward"></i>&nbsp;1s</button>
+        <button id="seek-comm-3" class="seek-comm btn common_seek_btn" index="0" data-sec="-0.1"><i class="glyphicon glyphicon-backward"></i>&nbsp;0.1s</button>
 
-        <button id="play-comm" class="play btn common_control_btn" index="0"><i class="playIcon glyphicon glyphicon-play"></i></button>
+        <button id="play-comm" class="btn common_control_btn" index="0"><i class="playIcon-comm glyphicon glyphicon-play"></i></button>
 
-        <button id="seek-comm-4" class="seek seek-comm btn common_seek_btn" index="0" data-sec="+0.1">0.1s&nbsp;<i class="glyphicon glyphicon-forward"></i></button>
-        <button id="seek-comm-5" class="seek seek-comm btn common_seek_btn" index="0" data-sec="+1">1s&nbsp;<i class="glyphicon glyphicon-forward"></i></button>
-        <button id="seek-comm-6" class="seek seek-comm btn common_seek_btn" index="0" data-sec="+2">2s&nbsp;<i class="glyphicon glyphicon-forward"></i></button>
+        <button id="seek-comm-4" class="seek-comm btn common_seek_btn" index="0" data-sec="+0.1">0.1s&nbsp;<i class="glyphicon glyphicon-forward"></i></button>
+        <button id="seek-comm-5" class="seek-comm btn common_seek_btn" index="0" data-sec="+1">1s&nbsp;<i class="glyphicon glyphicon-forward"></i></button>
+        <button id="seek-comm-6" class="seek-comm btn common_seek_btn" index="0" data-sec="+2">2s&nbsp;<i class="glyphicon glyphicon-forward"></i></button>
 </div>
 
 <div class="footer">

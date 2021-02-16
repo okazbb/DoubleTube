@@ -27,6 +27,7 @@ $(document).ready(function(){
     $(".seek1").prop('disabled', true);   
     $(".seek2").prop('disabled', true);
     $(".seek-comm").prop('disabled', true);
+    $("#play-comm").prop('disabled', true);
 
     /**
      * 再生ボタン
@@ -34,13 +35,23 @@ $(document).ready(function(){
     $(".play").click(function(event) {
         
         index = $(this).attr('index');
-        if(index == 0){
+        controlButton(index);
+
+    }),
+    /**
+     * 共通再生ボタン
+     */
+    $("#play-comm").click(function(event) {
+        state1 = playerObject[1].getPlayerState();
+        state2 = playerObject[2].getPlayerState();
+    
+        if(state1 == state2){
             controlButton(1);
             controlButton(2);
         } else {
-            controlButton(index);
+            controlButton(1, true);
+            controlButton(2, true);
         }
-        
     }),
     /**
      * 読込ボタン
@@ -48,13 +59,8 @@ $(document).ready(function(){
     $(".load").click(function(event){
         
         index = $(this).attr('index');
-        // console.log(index);
-
         sourceUrl = $('#source' + index).val();
-        // console.log(sourceUrl);
-
         videoId = sourceUrl.split('v=')[1];
-        // console.log(videoId);
 
         if(videoId){
             // クエリパラメータ除去
@@ -73,10 +79,19 @@ $(document).ready(function(){
      */
     $(".seek").click(function(event) {
         index = $(this).attr('index');
-        // console.log($(this).data('sec'));
-
         t = parseFloat($(this).data('sec'));
         playerObject[index].seekTo(playerObject[index].getCurrentTime() + t, true);
+    }),
+    /**
+     * 共通コマ送りボタン
+     */
+    $(".seek-comm").click(function(event) {
+        t = parseFloat($(this).data('sec'));
+        // console.log($(this).data('sec'));
+
+        for(i = 1; i <= 2; i++){
+            playerObject[i].seekTo(playerObject[i].getCurrentTime() + t, true);
+        }
     })
 }); 
 
@@ -124,47 +139,53 @@ function onPlayerReady(event) {
 }
 
 /**
- * 再生ステータス変更
+ * 再生ステータスに応じてボタン状態を変更
  */
-function onStateChange(event) {
-    
-    index = $(this).attr('index');
+function changePlayButton(){
+    state = {1:null, 2:null};
+    for(i = 1; i<= 2; i++){
+        state[i] = playerObject[i].getPlayerState();
 
-    // console.log('index='+index);
-    // console.dir(event);
-    player_status = playerObject[index].getPlayerState();
+        switch(state[i]){
+            case YT.PlayerState.CUED:
+                if(autoPlay[i]){
+                    //自動再生
+                    playerObject[i].playVideo();
+                }
+                break;
 
-//    console.log('state='+player_status);
-    checkSeekProp();
+            case YT.PlayerState.PLAYING:
+                //再生中は中央ボタンを停止ボタンに
+                $(".playIcon" + i).removeClass('glyphicon-play'); 
+                $(".playIcon" + i).addClass('glyphicon-pause');
 
-    //再生ステータスに応じてボタン状態を変更する
-    switch(player_status){
-        case YT.PlayerState.CUED:
-            if(autoPlay[index]){
-                //自動再生
-                playerObject[index].playVideo();
-            }
-            break;
+                if(autoPlay[i]){
+                    //自動再生時は停止後にフラグオフ
+                    playerObject[i].pauseVideo();
+                    autoPlay[i] = false;
+                }
+                break;
 
-        case YT.PlayerState.PLAYING:
-            //再生中は中央ボタンを停止ボタンに
-            $(".playIcon" + index).removeClass('glyphicon-play'); 
-            $(".playIcon" + index).addClass('glyphicon-pause');
-
-            if(autoPlay[index]){
-                //自動再生時は停止後にフラグオフ
-                playerObject[index].pauseVideo();
-                autoPlay[index] = false;
-            }
-            break;
-
-        case YT.PlayerState.PAUSED:
-            //一時停止中は中央ボタンを再生ボタンに
-            $(".playIcon" + index).removeClass('glyphicon-pause');
-            $(".playIcon" + index).addClass('glyphicon-play');
-            break; 
+            case YT.PlayerState.PAUSED:
+                //一時停止中は中央ボタンを再生ボタンに
+                $(".playIcon" + i).removeClass('glyphicon-pause');
+                $(".playIcon" + i).addClass('glyphicon-play');
+                break; 
+        }
     }
 
+
+    if(state[1] == YT.PlayerState.PAUSED && state[2] == YT.PlayerState.PAUSED){
+        //両方停止
+        $(".playIcon-comm").removeClass('glyphicon-pause');
+        $(".playIcon-comm").addClass('glyphicon-play');
+
+    } else if(state[1] == YT.PlayerState.PLAYING || state[2] == YT.PlayerState.PLAYING){
+        //どちらかが再生
+        $(".playIcon-comm").removeClass('glyphicon-play');
+        $(".playIcon-comm").addClass('glyphicon-pause');
+    }
+    
     // YT.PlayerState
     // -1 – 未開始
     // 0 – 終了 YT.PlayerState.ENDED
@@ -172,16 +193,32 @@ function onStateChange(event) {
     // 2 – 一時停止 YT.PlayerState.PAUSED
     // 3 – バッファリング中 YT.PlayerState.BUFFERING
     // 5 – 頭出し済み YT.PlayerState.CUED
+
 }
 
 /**
- * 再生
- * @param {} index 
+ * 再生ステータス変更
  */
-function controlButton(index){
+function onStateChange(event) {
+    
+    index = $(this).attr('index');
+    changePlayButton();
+    checkSeekProp();
+}
+
+/**
+ * 再生制御
+ * @param {}} index 
+ * @param {*} stop  true指定時は停止状態にする
+ */
+function controlButton(index, stop = false){
 
     player_status = playerObject[index].getPlayerState();
-    // console.log(player_status);
+
+    if(stop){
+        playerObject[index].pauseVideo();
+        return;
+    }
 
     switch(player_status){
         case YT.PlayerState.PLAYING:
@@ -195,7 +232,6 @@ function controlButton(index){
 
         default:
             playerObject[index].playVideo();
-            
     }
 }
 
@@ -211,9 +247,17 @@ function checkSeekProp(){
     $(".seek1").prop('disabled', !(state1 == YT.PlayerState.PAUSED));   
     $(".seek2").prop('disabled', !(state2 == YT.PlayerState.PAUSED));
 
-    //どちらかが再生中なら共通は使用不可
-    $(".seek-comm").prop('disabled', !(state1 == YT.PlayerState.PAUSED && state2 == YT.PlayerState.PAUSED));
-    $("#play-comm").prop('disabled', !(state1 == YT.PlayerState.PAUSED && state2 == YT.PlayerState.PAUSED));
+    if(state1 == YT.PlayerState.PAUSED && state2 == YT.PlayerState.PAUSED){
+        //両方停止
+        $(".seek-comm").prop('disabled', false);
+        $("#play-comm").prop('disabled', false);
+    }
+    if(state1 == YT.PlayerState.PLAYING && state2 == YT.PlayerState.PLAYING){
+        //両方再生
+        $(".seek-comm").prop('disabled', true);
+        $("#play-comm").prop('disabled', false);
+    }
+    
 }
 
 
