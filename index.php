@@ -8,7 +8,7 @@ if($CONST_USE_HTTP_REDIRECT){
 }
 ?>
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:og="http://ogp.me/ns#">
 <head>
     <meta charset="utf-8">
     <title>比較動画メーカー(仮) V2.0</title>
@@ -30,6 +30,8 @@ if($CONST_USE_HTTP_REDIRECT){
     if($CONST_USE_ANALYTICS){
         include_once('analytics.php');
     }?>
+    <meta name="description" content="Youtube動画を2つ同時に再生します。動画を読み込み後にコマ送りボタンで開始位置を合わせてから同時再生すれば比較動画のように表示できます。">
+    <meta property="og:image" content="image/ogp.png" />
 </head>
 <body>
 <?php for($i = 1; $i <=2 ; $i++):?>
