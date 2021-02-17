@@ -31,7 +31,8 @@ if($CONST_USE_HTTP_REDIRECT){
         include_once('analytics.php');
     }?>
     <meta name="description" content="Youtube動画を2つ同時に再生します。動画を読み込み後にコマ送りボタンで開始位置を合わせてから同時再生すれば比較動画のように表示できます。">
-    <meta property="og:image" content="image/ogp.png" />
+    <meta property="og:image" content="image/ogp-600-315.png" />
+    <meta name="twitter:image" content="image/ogp-400-210.png" />
 </head>
 <body>
 <?php for($i = 1; $i <=2 ; $i++):?>
