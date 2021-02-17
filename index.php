@@ -32,11 +32,10 @@ if($CONST_USE_HTTP_REDIRECT){
     }?>
     <meta name="description" content="Youtube動画を2つ同時に再生します。動画を読み込み後にコマ送りボタンで開始位置を合わせてか>ら同時再生すれば比較動画のように表示できます。">
     <meta name="twitter:card" content="summary" />
-    <meta name="og:title" content="比較動画メーカー" />
+    <meta property="og:title" content="比較動画メーカー" />
     <meta property="og:image" content="https://www.riders.ws/hikaku/image/ogp-600-315.png" />
     <meta property="og:url" content="https://www.riders.ws/hikaku/" />
-    <meta property="og:description" content="Youtube動画を比較動画のように表示します。読み込み後にコマ送りボタンで開始位置を合>
-わせてから再生してください。" />
+    <meta property="og:description" content="Youtube動画を比較動画のように表示します。読み込み後にコマ送りボタンで開始位置を合わせてから再生してください。" />
 </head>
 <body>
 <?php for($i = 1; $i <=2 ; $i++):?>
