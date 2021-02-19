@@ -57,17 +57,19 @@ $(function(){
         index = $(this).attr('index');
         sourceUrl = $('#source' + index).val();
         videoId = sourceUrl.split('v=')[1];
-        // クエリパラメータ除去
-        queryStringPos = videoId.indexOf('&');
-        if(queryStringPos != -1) {
-            videoId = videoId.substring(0, queryStringPos);
-        }
 
         if(videoId){
+            // クエリパラメータ除去
+            queryStringPos = videoId.indexOf('&');
+            if(queryStringPos != -1) {
+                videoId = videoId.substring(0, queryStringPos);
+            }
+
             autoPlay[index] = true;
             if(playerObject[index]){
                 //2回目以降
                 playerObject[index].cueVideoById(videoId);
+
             } else {
                 autoPlay[index] = true;
                 videoIdParam[index] = videoId,
@@ -277,9 +279,13 @@ function checkSeekButtonProp(){
 
     if(playerObject[1]){
         state1 = playerObject[1].getPlayerState();
+    } else {
+        state1 = -1;
     }
     if(playerObject[2]){
         state2 = playerObject[2].getPlayerState();
+    } else {
+        state2 = -1;
     }
     //一時停止中ならコマ送りを使用可
     $(".seek1").prop('disabled', !(state1 == YT.PlayerState.PAUSED));   
@@ -311,10 +317,10 @@ function checkSeekButtonProp(){
  * 共有用リンク更新
  */
 function setShareUrl(){
-    if(playerObject[1].getPlayerState() != YT.PlayerState.PAUSED){
+    if(playerObject[1] && playerObject[1].getPlayerState() != YT.PlayerState.PAUSED){
         return;
     } 
-    if(playerObject[2].getPlayerState() != YT.PlayerState.PAUSED){
+    if(playerObject[2] && playerObject[2].getPlayerState() != YT.PlayerState.PAUSED){
         return;
     } 
     
