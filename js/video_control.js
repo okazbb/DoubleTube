@@ -2,6 +2,8 @@
  * player
  */
 var playerObject = {1: null,　2: null};
+var plaeyer_width;
+var player_height;
 
 /**
  * 自動再生フラグ
@@ -19,12 +21,9 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 /**
  * ready
  */
-$(document).ready(function(){  
-    $(".play").prop('disabled', true);
-    $(".seek1").prop('disabled', true);   
-    $(".seek2").prop('disabled', true);
-    $(".seek-comm").prop('disabled', true);
-    $("#play-comm").prop('disabled', true);
+$(function(){  
+
+    setScreenDefault();
 
     /**
      * 再生ボタン
@@ -58,17 +57,41 @@ $(document).ready(function(){
         index = $(this).attr('index');
         sourceUrl = $('#source' + index).val();
         videoId = sourceUrl.split('v=')[1];
+        // クエリパラメータ除去
+        queryStringPos = videoId.indexOf('&');
+        if(queryStringPos != -1) {
+            videoId = videoId.substring(0, queryStringPos);
+        }
 
         if(videoId){
-            // クエリパラメータ除去
-            queryStringPos = videoId.indexOf('&');
-            if(queryStringPos != -1) {
-                videoId = videoId.substring(0, queryStringPos);
-            }
+            autoPlay[index] = true;
+            if(playerObject[index]){
+                //2回目以降
+                playerObject[index].cueVideoById();
+            } else {
+                autoPlay[index] = true;
+                videoIdParam[index] = videoId,
+                playerObject[index] = new YT.Player(
+                    'player' + index, 
+                    { // playerはiframeに置き換えるdivタグのid
+                        height: player_height, // プレイヤーの高さ
+                        width: plaeyer_width, // プレイヤーの幅
+                        // videoId: videoId,
+                        playerVars: {
+                            'rel': 0,
+                            'showinfo': 0,
+                            'autoplay': 0
+                        },            
+                        events:{
+                            'onError': onPlayerError,
+                            'onStateChange': onStateChange,
+                            'onReady': onPlayerReady,
+                        }
+                    }
+                );
+            }            
         }
-        autoPlay[index] = true;
-        playerObject[index].cueVideoById(videoId);
-
+       
     }),
     /**
      * コマ送りボタン
@@ -99,29 +122,30 @@ $(document).ready(function(){
 function onYouTubePlayerAPIReady() {
 
     for(i = 1; i <=2; i++){
-        sec_w = $("#player" + i).width();
-        sec_h = sec_w * 0.57;
-        $("#player" + i).height(sec_h);
-
-        playerObject[i] = new YT.Player(
-            'player' + i, 
-            { // playerはiframeに置き換えるdivタグのid
-                height: sec_h, // プレイヤーの高さ
-                width: sec_w, // プレイヤーの幅
-                // videoId: videoIdParam[i],
-                playerVars: {
-                    'rel': 0,
-                    'showinfo': 0,
-                    'autoplay': 0
-                },            
-                events:{
-                    'onError': onPlayerError,
-                    'onStateChange': onStateChange,
-                    'onReady': onPlayerReady,
+        //GETパラメータ有ならPlayerをロード
+        if(videoIdParam[i] != ''){
+        
+            autoPlay[i] = true;
+            playerObject[i] = new YT.Player(
+                'player' + i, 
+                { // playerはiframeに置き換えるdivタグのid
+                    height: player_height, // プレイヤーの高さ
+                    width: plaeyer_width, // プレイヤーの幅
+                    // videoId: videoIdParam[i],
+                    playerVars: {
+                        'rel': 0,
+                        'showinfo': 0,
+                        'autoplay': 0
+                    },            
+                    events:{
+                        'onError': onPlayerError,
+                        'onStateChange': onStateChange,
+                        'onReady': onPlayerReady,
+                    }
                 }
-            });
-
-    }  
+            );
+        }
+    }
 }
 
 /**
@@ -314,4 +338,21 @@ function setShareUrl(){
         url.searchParams.set('v'+i+'o', videoOffset[i])
     }
     $("#share_url").val(url.href);
+
+}
+/**
+ * 要素の初期状態
+ */
+function setScreenDefault(){
+    $(".play").prop('disabled', true);
+    $(".seek1").prop('disabled', true);   
+    $(".seek2").prop('disabled', true);
+    $(".seek-comm").prop('disabled', true);
+    $("#play-comm").prop('disabled', true);
+
+    for(i = 1; i <=2; i++){
+        plaeyer_width = $("#player" + i).width();
+        player_height = plaeyer_width * 0.57;
+        $("#player" + i).height(player_height);
+    }
 }
