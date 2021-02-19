@@ -67,7 +67,7 @@ $(function(){
             autoPlay[index] = true;
             if(playerObject[index]){
                 //2回目以降
-                playerObject[index].cueVideoById();
+                playerObject[index].cueVideoById(videoId);
             } else {
                 autoPlay[index] = true;
                 videoIdParam[index] = videoId,
