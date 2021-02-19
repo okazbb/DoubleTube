@@ -111,15 +111,6 @@ body {
 
 }
 
-#share_url {
-    width:60%;
-    margin-right: 5%;
-    padding: 5px;
-    background-color: #131313;
-    border: 1px solid #2a2a2a;
-    color: #6f6f6f;
-}
-
 #footer {
     display: inline;
     width: 100%;

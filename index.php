@@ -76,8 +76,7 @@ if($CONST_USE_HTTP_REDIRECT){
 
 <div id="footer">
     <ul>
-        <li><input type="text" id="share_url" value="" placeholder="Share URL" /></input></li>
-        <li>比較動画メーカー(仮)</li>
+        <li><a href="https://www.riders.ws/hikaku/">比較動画メーカー(仮)</a></li>
         <li><a href="https://github.com/okazbb/DoubleTube"><img src="image/github-icon.png"></a></li>
         <li><a href="https://twitter.com/okazbb"><img src="image/twitter-icon.png"></a></li>
         <!-- ShiroKuro Social Icons https://hail2u.net/blog/webdesign/shirokuro-social-icons-v1.5.html -->

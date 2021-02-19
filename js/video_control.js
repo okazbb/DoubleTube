@@ -337,7 +337,7 @@ function setShareUrl(){
         url.searchParams.set('v'+i, videoId[i]);
         url.searchParams.set('v'+i+'o', videoOffset[i])
     }
-    $("#share_url").val(url.href);
+    history.replaceState(null, '', url.href);
 
 }
 /**
