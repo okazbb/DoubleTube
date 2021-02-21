@@ -324,8 +324,8 @@ function setShareUrl(){
         return;
     } 
     
-    videoId = {};
-    videoOffset = {};
+    videoId = {1: null, 2: null};
+    videoOffset = {1: null, 2: null};
 
     for(i = 1; i <= 2; i++){
         if(!playerObject[i]) continue; 
@@ -340,8 +340,8 @@ function setShareUrl(){
     
     url = new URL(location.href);
     for(i = 1; i <=2; i++){
-        url.searchParams.set('v'+i, videoId[i]);
-        url.searchParams.set('v'+i+'o', videoOffset[i])
+        if(videoId[i]) url.searchParams.set('v'+i, videoId[i]);
+        if(videoOffset[i]) url.searchParams.set('v'+i+'o', videoOffset[i])
     }
     history.replaceState(null, '', url.href);
 
