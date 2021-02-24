@@ -155,7 +155,15 @@ function onYouTubePlayerAPIReady() {
  * @param {*} event 
  */
 function onPlayerError(event){
-    console.log('error');
+    dom =event.target.getIframe();
+    i = dom.getAttribute('index');
+
+    //再生ボタン使用不可
+    $("#play" + i).prop('disabled', true);   
+    $("#seek" + i).prop('disabled', true);   
+
+    $(".seek-comm").prop('disabled', true);
+    $("#play-comm").prop('disabled', true);
 }
 
 /**
@@ -187,6 +195,7 @@ function changePlayButtonStatus(i){
             break;
 
         case -1: //未開始
+            break;
 
         case YT.PlayerState.CUED: //5
             $('#source' + i).val(playerObject[i].getVideoUrl());
@@ -251,7 +260,6 @@ function onStateChange(event) {
 function togglePlayButton(index, stop = false){
 
     player_status = playerObject[index].getPlayerState();
-
     if(stop){
         playerObject[index].pauseVideo();
         return;
