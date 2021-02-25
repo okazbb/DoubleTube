@@ -17,12 +17,20 @@
 位置合わせが完了したら、画面下部中央の「同時再生ボタン」を押してください。  
 2つの動画が同時に再生開始されます。  
 <img src="image/m4.png" />
-  
-※YoutubePlayerのラグで再生開始が微妙にズレてしまう事もあります。  
+
+tips1  
+YoutubePlayerのラグで再生開始が微妙にズレてしまう事もあります。  
 その時は一時停止停止して3)の調整を再度行ってください。  
-  
-※以下のサンプルのように、URLに動画IDを埋め込むこともできます  
-hikaku/?v1=W99hdYsNNYg&v2=QHMgfVxvXhY  
+
+tips2  
+以下のサンプルのように、URLに動画IDを埋め込むこともできます。
+[https://www.riders.ws/hikaku/?v1=W99hdYsNNYg&v2=QHMgfVxvXhY&v1o=2.62&v2o=2.29](https://www.riders.ws/hikaku/?v1=W99hdYsNNYg&v2=QHMgfVxvXhY&v1o=2.62&v2o=2.29)  
+※パラメータ付きリンクからページを開いた時は、手動で再生ボタンを押下する必要があります。
+
 パラメータ説明  
-v1/v2 動画ID  
-v1o/v2o 動画再生開始位置  
+| パラメータ | 用途 |
+----|---- 
+| v1 | 動画１のID |
+| v2 | 動画２のID |
+| v1o | 動画１の再生開始位置 |
+| v2o | 動画２の再生開始位置 |
