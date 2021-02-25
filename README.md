@@ -16,12 +16,15 @@
 4. 同時再生  
 位置合わせが完了したら、画面下部中央の「同時再生ボタン」を押してください。  
 2つの動画が同時に再生開始されます。  
-<img src="image/m4.png" />
-
+<img src="image/m4.png" />  
+  
+上記の例では同一コースの第１ヒートと第２ヒートを比較しました。  
+同じセクションですが走行ラインが異なっている事がわかります。  
+  
 tips1  
 YoutubePlayerのラグで再生開始が微妙にズレてしまう事もあります。  
 その時は一時停止停止して3)の調整を再度行ってください。  
-
+  
 tips2  
 以下のサンプルのように、URLに動画IDを埋め込むこともできます。
 [https://www.riders.ws/hikaku/?v1=W99hdYsNNYg&v2=QHMgfVxvXhY&v1o=2.62&v2o=2.29](https://www.riders.ws/hikaku/?v1=W99hdYsNNYg&v2=QHMgfVxvXhY&v1o=2.62&v2o=2.29)  
