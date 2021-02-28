@@ -53,16 +53,18 @@ if($CONST_USE_HTTP_REDIRECT){
         <button id="seek<?=$i?>-1" class="seek seek<?=$i?> btn seek_btn" index="<?=$i?>" data-sec="-2"><i class="glyphicon glyphicon-backward"></i>&nbsp;2s</button>
         <button id="seek<?=$i?>-2" class="seek seek<?=$i?> btn seek_btn" index="<?=$i?>" data-sec="-1"><i class="glyphicon glyphicon-backward"></i>&nbsp;1s</button>
         <button id="seek<?=$i?>-3" class="seek seek<?=$i?> btn seek_btn" index="<?=$i?>" data-sec="-0.1"><i class="glyphicon glyphicon-backward"></i>&nbsp;0.1s</button>
+        <button id="seek<?=$i?>-4" class="seek seek<?=$i?> btn seek_btn" index="<?=$i?>" data-sec="-0.02"><i class="glyphicon glyphicon-backward"></i>&nbsp;0.02s</button>
 
         <button id="play<?=$i?>" class="play btn control_btn" index="<?=$i?>"><i class="playIcon<?=$i?> glyphicon glyphicon-play"></i></button>
 
-        <button id="seek<?=$i?>-4" class="seek seek<?=$i?> btn seek_btn" index="<?=$i?>" data-sec="+0.1">0.1s&nbsp;<i class="glyphicon glyphicon-forward"></i></button>
-        <button id="seek<?=$i?>-5" class="seek seek<?=$i?> btn seek_btn" index="<?=$i?>" data-sec="+1">1s&nbsp;<i class="glyphicon glyphicon-forward"></i></button>
-        <button id="seek<?=$i?>-6" class="seek seek<?=$i?> btn seek_btn" index="<?=$i?>" data-sec="+2">2s&nbsp;<i class="glyphicon glyphicon-forward"></i></button>
+        <button id="seek<?=$i?>-5" class="seek seek<?=$i?> btn seek_btn" index="<?=$i?>" data-sec="+0.02">0.02s&nbsp;<i class="glyphicon glyphicon-forward"></i></button>
+        <button id="seek<?=$i?>-6" class="seek seek<?=$i?> btn seek_btn" index="<?=$i?>" data-sec="+0.1">0.1s&nbsp;<i class="glyphicon glyphicon-forward"></i></button>
+        <button id="seek<?=$i?>-7" class="seek seek<?=$i?> btn seek_btn" index="<?=$i?>" data-sec="+1">1s&nbsp;<i class="glyphicon glyphicon-forward"></i></button>
+        <button id="seek<?=$i?>-8" class="seek seek<?=$i?> btn seek_btn" index="<?=$i?>" data-sec="+2">2s&nbsp;<i class="glyphicon glyphicon-forward"></i></button>
     </div>
 </div>
 <?php endfor;?>
-<div id="dual-control" class="clearfix">
+<div id="dual-control">
         <button id="seek-comm-1" class="seek-comm btn common_seek_btn" index="0" data-sec="-2"><i class="glyphicon glyphicon-backward"></i>&nbsp;2s</button>
         <button id="seek-comm-2" class="seek-comm btn common_seek_btn" index="0" data-sec="-1"><i class="glyphicon glyphicon-backward"></i>&nbsp;1s</button>
         <button id="seek-comm-3" class="seek-comm btn common_seek_btn" index="0" data-sec="-0.1"><i class="glyphicon glyphicon-backward"></i>&nbsp;0.1s</button>
@@ -72,6 +74,11 @@ if($CONST_USE_HTTP_REDIRECT){
         <button id="seek-comm-4" class="seek-comm btn common_seek_btn" index="0" data-sec="+0.1">0.1s&nbsp;<i class="glyphicon glyphicon-forward"></i></button>
         <button id="seek-comm-5" class="seek-comm btn common_seek_btn" index="0" data-sec="+1">1s&nbsp;<i class="glyphicon glyphicon-forward"></i></button>
         <button id="seek-comm-6" class="seek-comm btn common_seek_btn" index="0" data-sec="+2">2s&nbsp;<i class="glyphicon glyphicon-forward"></i></button>
+</div>
+<div id="time_control" class="clearfix">
+    <input type="text" readonly id="offset1" value="0.00" class="txt" />
+    <button id="reset" class="btn reset_btn"><i class="glyphicon glyphicon-refresh"></i></button>
+    <input type="text" readonly id="offset2" value="0.00" class="txt" />
 </div>
 
 <div id="footer">

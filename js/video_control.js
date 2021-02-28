@@ -4,6 +4,7 @@
 var playerObject = {1: null,　2: null};
 var plaeyer_width;
 var player_height;
+var base_time = {1: 0, 2: 0}
 
 /**
  * 自動再生フラグ
@@ -102,6 +103,7 @@ $(function(){
         index = $(this).attr('index');
         t = parseFloat($(this).data('sec'));
         playerObject[index].seekTo(playerObject[index].getCurrentTime() + t, true);
+        showTimeOffset();
         setShareUrl();
     }),
     /**
@@ -113,7 +115,22 @@ $(function(){
         for(i = 1; i <= 2; i++){
             playerObject[i].seekTo(playerObject[i].getCurrentTime() + t, true);
         }
+        showTimeOffset();
         setShareUrl();
+    }),
+    /**
+     * タイム差表示リセット
+     */
+    $("#reset").click(function(event) {
+        for(i = 1; i <= 2; i++){
+            if(playerObject[i] && playerObject[i].getPlayerState() == YT.PlayerState.PAUSED){
+                w = playerObject[i].getCurrentTime();
+                w = w * 100;
+                w = Math.round(w)
+                base_time[i] = w / 100;
+            }
+        }
+        showTimeOffset();
     })
 }); 
 
@@ -212,10 +229,7 @@ function changePlayButtonStatus(i){
             $(".playIcon" + i).addClass('glyphicon-pause');
 
             if(autoPlay[i]){
-                //自動再生時は停止後にフラグオフ
-                autoPlay[i] = false;
                 playerObject[i].pauseVideo();
-                
             }
             break;
 
@@ -223,7 +237,16 @@ function changePlayButtonStatus(i){
             //一時停止中は中央ボタンを再生ボタンに
             $(".playIcon" + i).removeClass('glyphicon-pause');
             $(".playIcon" + i).addClass('glyphicon-play');
+            showTimeOffset();
             setShareUrl();
+
+            if(autoPlay[i]){
+                //自動再生時は停止後にフラグオフ
+                autoPlay[i] = false;
+                showTimeOffset(true);
+            } else {
+                showTimeOffset();
+            }
             break; 
     }
     
@@ -249,6 +272,7 @@ function onStateChange(event) {
 
     changePlayButtonStatus(i);
     checkSeekButtonProp();
+
     // togglePlayButton(index);
 }
 
@@ -354,6 +378,25 @@ function setShareUrl(){
     history.replaceState(null, '', url.href);
 
 }
+/**
+ * タイム差の表示
+ */
+function showTimeOffset(refresh_base_time = false){
+
+    for(i = 1; i <=2; i++){
+
+        if(playerObject[i] && playerObject[1].getPlayerState() != YT.PlayerState.PAUSED) continue;
+
+        w = playerObject[i].getCurrentTime() * 100;
+        w = Math.round(w)
+        current_time = w / 100;
+
+        if(refresh_base_time) base_time[i] = current_time;
+    
+        $("#offset" + i).val((current_time - base_time[i]).toFixed(2));
+    }
+}
+
 /**
  * 要素の初期状態
  */
