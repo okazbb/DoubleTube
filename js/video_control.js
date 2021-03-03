@@ -140,10 +140,12 @@ $(function(){
  */
 function onYouTubePlayerAPIReady() {
 
+    videoid_exists = false;
+
     for(i = 1; i <=2; i++){
         //GETパラメータ有ならPlayerをロード
         if(videoIdParam[i] != ''){
-        
+            videoid_exists = true;
             autoPlay[i] = true;
             playerObject[i] = new YT.Player(
                 'player' + i, 
@@ -165,6 +167,9 @@ function onYouTubePlayerAPIReady() {
             );
         }
     }
+
+    if(videoid_exists) showRecommend(videoIdParam);
+
 }
 
 /**
