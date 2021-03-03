@@ -211,7 +211,7 @@ function onPlayerReady(event) {
 function changePlayButtonStatus(i){
 
     state = playerObject[i].getPlayerState();
-    
+
     switch(state){
         case 3: //バッファリング中
             break;
@@ -234,7 +234,9 @@ function changePlayButtonStatus(i){
             $(".playIcon" + i).addClass('glyphicon-pause');
 
             if(autoPlay[i]){
+                //自動再生時は停止後にフラグオフ
                 playerObject[i].pauseVideo();
+                autoPlay[i] = false;
             }
             break;
 
@@ -246,8 +248,6 @@ function changePlayButtonStatus(i){
             setShareUrl();
 
             if(autoPlay[i]){
-                //自動再生時は停止後にフラグオフ
-                autoPlay[i] = false;
                 showTimeOffset(true);
             } else {
                 showTimeOffset();
@@ -390,15 +390,16 @@ function showTimeOffset(refresh_base_time = false){
 
     for(i = 1; i <=2; i++){
 
-        if(playerObject[i] && playerObject[1].getPlayerState() != YT.PlayerState.PAUSED) continue;
+        if(playerObject[i] && playerObject[i].getPlayerState() == YT.PlayerState.PAUSED){
 
-        w = playerObject[i].getCurrentTime() * 100;
-        w = Math.round(w)
-        current_time = w / 100;
+            w = playerObject[i].getCurrentTime() * 100;
+            w = Math.round(w)
+            current_time = w / 100;
 
-        if(refresh_base_time) base_time[i] = current_time;
-    
-        $("#offset" + i).val((current_time - base_time[i]).toFixed(2));
+            if(refresh_base_time) base_time[i] = current_time;
+        
+            $("#offset" + i).val((current_time - base_time[i]).toFixed(2));
+        }
     }
 }
 
