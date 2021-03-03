@@ -38,6 +38,7 @@ if($CONST_USE_HTTP_REDIRECT){
     <meta property="og:description" content="Youtube動画を比較動画のように表示します。読み込み後にコマ送りボタンで開始位置を合わせてから再生してください。" />
 </head>
 <body>
+<div class="wrapper">
 <?php for($i = 1; $i <=2 ; $i++):?>
 <div id="window<?=$i?>" class="window">
     <div id="info<?=$i?>" class="info">
@@ -80,7 +81,6 @@ if($CONST_USE_HTTP_REDIRECT){
     <button id="reset" class="btn reset_btn"><i class="glyphicon glyphicon-refresh"></i></button>
     <input type="text" readonly id="offset2" value="0.00" class="txt" />
 </div>
-
 <div id="footer">
     <ul>
         <li><a href="https://www.riders.ws/hikaku/">比較動画メーカー(仮)</a></li>
@@ -88,6 +88,8 @@ if($CONST_USE_HTTP_REDIRECT){
         <li><a href="https://twitter.com/okazbb"><img src="image/twitter-icon.png"></a></li>
         <!-- ShiroKuro Social Icons https://hail2u.net/blog/webdesign/shirokuro-social-icons-v1.5.html -->
     </ul>
+</div>
+
 </div>
 
 </body>
