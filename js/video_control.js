@@ -131,6 +131,12 @@ $(function(){
             }
         }
         showTimeOffset();
+    }),
+    /**
+     * ヘルプ
+     */
+    $("#help").click(function(event) {
+        startTutorial();
     })
 }); 
 

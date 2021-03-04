@@ -86,9 +86,10 @@ if($CONST_USE_HTTP_REDIRECT){
 </div>
 <div id="footer">
     <ul>
-        <li><a href="https://www.riders.ws/hikaku/">比較動画メーカー(仮)</a></li>
+        <li><a id="help" href="javascript:void(0)">使い方</a></li>
         <li><a href="https://github.com/okazbb/DoubleTube"><img src="image/github-icon.png"></a></li>
         <li><a href="https://twitter.com/okazbb"><img src="image/twitter-icon.png"></a></li>
+        <li><a href="https://www.riders.ws/hikaku/">比較動画メーカー(仮)</a></li>
         <!-- ShiroKuro Social Icons https://hail2u.net/blog/webdesign/shirokuro-social-icons-v1.5.html -->
     </ul>
 </div>
