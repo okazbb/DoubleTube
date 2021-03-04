@@ -23,19 +23,22 @@ if($CONST_USE_HTTP_REDIRECT){
             2: <?=isset($_GET['v2o']) && !empty($_GET['v2o']) ? $_GET['v2o'] : '0'?>
         }
     </script>
-    <script src="js/video_control.js"></script>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/hikaku.css" rel="stylesheet">
     <?php
     if($CONST_USE_ANALYTICS){
         include_once('analytics.php');
     }?>
+    <script src="//unpkg.com/intro.js/minified/intro.min.js"></script>
+    <link href="//unpkg.com/intro.js/minified/introjs.min.css" rel="stylesheet">
+    <link href="css/hikaku.css" rel="stylesheet">
     <meta name="description" content="Youtube動画を2つ同時に再生します。動画を読み込み後にコマ送りボタンで開始位置を合わせてか>ら同時再生すれば比較動画のように表示できます。">
     <meta name="twitter:card" content="summary" />
     <meta property="og:title" content="比較動画メーカー" />
     <meta property="og:image" content="https://www.riders.ws/hikaku/image/ogp-600-315.png" />
     <meta property="og:url" content="https://www.riders.ws/hikaku/" />
     <meta property="og:description" content="Youtube動画を比較動画のように表示します。読み込み後にコマ送りボタンで開始位置を合わせてから再生してください。" />
+    <script src="js/tutorial.js"></script>
+    <script src="js/video_control.js"></script>
 </head>
 <body>
 <div class="wrapper">
@@ -83,13 +86,16 @@ if($CONST_USE_HTTP_REDIRECT){
 </div>
 <div id="footer">
     <ul>
-        <li><a href="https://www.riders.ws/hikaku/">比較動画メーカー(仮)</a></li>
+        <li><a id="help" href="javascript:void(0)">使い方</a></li>
         <li><a href="https://github.com/okazbb/DoubleTube"><img src="image/github-icon.png"></a></li>
         <li><a href="https://twitter.com/okazbb"><img src="image/twitter-icon.png"></a></li>
+        <li><a href="https://www.riders.ws/hikaku/">比較動画メーカー(仮)</a></li>
         <!-- ShiroKuro Social Icons https://hail2u.net/blog/webdesign/shirokuro-social-icons-v1.5.html -->
     </ul>
 </div>
+<?
 
+?>
 </div>
 
 </body>

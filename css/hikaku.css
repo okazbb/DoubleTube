@@ -4,6 +4,11 @@ body {
     background: #171717;
 }
 
+a:link { color: #cac8c8; }
+a:visited { color: #525252; }
+a:hover { color: #dddddd; }
+a:active { color: #ff8000; }
+
 .wrapper{
     min-height: 100vh;
     position: relative;
@@ -140,7 +145,7 @@ body {
     background: #1d1d1d;
 
     border: 1px solid #2a2a2a;
-    color: #aaa8a8;
+    color: #818080;
     text-align: center;
 }
 
