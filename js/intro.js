@@ -4071,16 +4071,16 @@
     this._introItems = [];
     this._options = {
       /* Next button label in tooltip box */
-      nextLabel: "Next",
+      nextLabel: "次へ",
 
       /* Previous button label in tooltip box */
-      prevLabel: "Back",
+      prevLabel: "戻る",
 
       /* Skip button label in tooltip box */
-      skipLabel: "×",
+      skipLabel: "☓",
 
       /* Done button label in tooltip box */
-      doneLabel: "Done",
+      doneLabel: "完了",
 
       /* Hide previous button in the first step? Otherwise, it will be disabled button. */
       hidePrev: false,
