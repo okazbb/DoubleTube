@@ -28,8 +28,8 @@ if($CONST_USE_HTTP_REDIRECT){
     if($CONST_USE_ANALYTICS){
         include_once('analytics.php');
     }?>
-    <script src="//unpkg.com/intro.js/minified/intro.min.js"></script>
-    <link href="//unpkg.com/intro.js/minified/introjs.min.css" rel="stylesheet">
+    <script src="js/intro.js"></script>
+    <link href="css/introjs.css" rel="stylesheet">
     <link href="css/hikaku.css" rel="stylesheet">
     <meta name="description" content="Youtube動画を2つ同時に再生します。動画を読み込み後にコマ送りボタンで開始位置を合わせてか>ら同時再生すれば比較動画のように表示できます。">
     <meta name="twitter:card" content="summary" />
