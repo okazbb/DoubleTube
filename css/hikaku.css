@@ -75,6 +75,7 @@ a:active { color: #ff8000; }
     width: 10%;
     background-color: #2c2c2c;
     color: #999da6;
+    min-width: 55px;
 }
 
 .seek_btn {
@@ -83,6 +84,7 @@ a:active { color: #ff8000; }
     width: 8%;
     background-color: #2c2c2c;
     color: #999da6;
+    min-width: 55px;
 }
 
 .reset_btn {
@@ -91,6 +93,7 @@ a:active { color: #ff8000; }
     width: 8%;
     background-color: #2c2c2c;
     color: #999da6;
+    min-width: 55px;
 }
 
 .btn:hover {
@@ -110,15 +113,17 @@ a:active { color: #ff8000; }
     width: 5%;
     background-color: #2c2c2c;
     color: #999da6;
+    min-width: 55px;
 }
 
 .common_control_btn {
-    padding: 10px;
+    padding: 8px;
     margin-left: 10px;
     margin-right: 10px;
     width: 10%;
     background-color: #2c2c2c;
     color: #999da6;
+    min-width: 55px;
 }
 
 #dual-control {
