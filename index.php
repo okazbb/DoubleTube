@@ -42,6 +42,7 @@ if($CONST_USE_HTTP_REDIRECT){
 </head>
 <body>
 <div class="wrapper">
+<div class="clearfix">
 <?php for($i = 1; $i <=2 ; $i++):?>
 <div id="window<?=$i?>" class="window">
     <div id="info<?=$i?>" class="info">
@@ -68,6 +69,7 @@ if($CONST_USE_HTTP_REDIRECT){
     </div>
 </div>
 <?php endfor;?>
+</div>
 <div id="dual-control">
         <button id="seek-comm-1" class="seek-comm btn common_seek_btn" index="0" data-sec="-2"><i class="glyphicon glyphicon-backward"></i>&nbsp;2s</button>
         <button id="seek-comm-2" class="seek-comm btn common_seek_btn" index="0" data-sec="-1"><i class="glyphicon glyphicon-backward"></i>&nbsp;1s</button>
@@ -79,7 +81,7 @@ if($CONST_USE_HTTP_REDIRECT){
         <button id="seek-comm-5" class="seek-comm btn common_seek_btn" index="0" data-sec="+1">1s&nbsp;<i class="glyphicon glyphicon-forward"></i></button>
         <button id="seek-comm-6" class="seek-comm btn common_seek_btn" index="0" data-sec="+2">2s&nbsp;<i class="glyphicon glyphicon-forward"></i></button>
 </div>
-<div id="time_control" class="clearfix">
+<div id="time_control">
     <input type="text" readonly id="offset1" value="0.00" class="txt" />
     <button id="reset" class="btn reset_btn"><i class="glyphicon glyphicon-refresh"></i></button>
     <input type="text" readonly id="offset2" value="0.00" class="txt" />
