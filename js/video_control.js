@@ -122,14 +122,7 @@ $(function(){
      * タイム差表示リセット
      */
     $("#reset").click(function(event) {
-        for(i = 1; i <= 2; i++){
-            if(playerObject[i] && playerObject[i].getPlayerState() == YT.PlayerState.PAUSED){
-                w = playerObject[i].getCurrentTime();
-                w = w * 100;
-                w = Math.round(w)
-                base_time[i] = w / 100;
-            }
-        }
+        resetBaseTime();
         showTimeOffset();
     }),
     /**
@@ -139,6 +132,20 @@ $(function(){
         startTutorial();
     })
 }); 
+
+/**
+ * タイム差表示のリセット
+ */
+function resetBaseTime(){
+    for(i = 1; i <= 2; i++){
+        if(playerObject[i] && playerObject[i].getPlayerState() == YT.PlayerState.PAUSED){
+            w = playerObject[i].getCurrentTime();
+            w = w * 100;
+            w = Math.round(w)
+            base_time[i] = w / 100;
+        }
+    }
+}
 
 /**
  * API初期設定
@@ -229,6 +236,7 @@ function changePlayButtonStatus(i){
             $('#source' + i).val(playerObject[i].getVideoUrl());
             if(autoPlay[i]){
                 //自動再生
+                resetBaseTime();
                 playerObject[i].playVideo();
             }
             $("#play" + i).prop('disabled', false);   
@@ -242,7 +250,6 @@ function changePlayButtonStatus(i){
             if(autoPlay[i]){
                 //自動再生時は停止後にフラグオフ
                 playerObject[i].pauseVideo();
-                autoPlay[i] = false;
             }
             break;
 
@@ -254,7 +261,9 @@ function changePlayButtonStatus(i){
             setShareUrl();
 
             if(autoPlay[i]){
+                resetBaseTime();
                 showTimeOffset(true);
+                autoPlay[i] = false;
             } else {
                 showTimeOffset();
             }
