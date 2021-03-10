@@ -71,20 +71,24 @@ if($CONST_USE_HTTP_REDIRECT){
 <?php endfor;?>
 </div>
 <div id="dual-control">
-        <button id="seek-comm-1" class="seek-comm btn common_seek_btn" index="0" data-sec="-2"><i class="glyphicon glyphicon-backward"></i>&nbsp;2s</button>
-        <button id="seek-comm-2" class="seek-comm btn common_seek_btn" index="0" data-sec="-1"><i class="glyphicon glyphicon-backward"></i>&nbsp;1s</button>
-        <button id="seek-comm-3" class="seek-comm btn common_seek_btn" index="0" data-sec="-0.1"><i class="glyphicon glyphicon-backward"></i>&nbsp;0.1s</button>
-
-        <button id="play-comm" class="btn common_control_btn" index="0"><i class="playIcon-comm glyphicon glyphicon-play"></i></button>
-
-        <button id="seek-comm-4" class="seek-comm btn common_seek_btn" index="0" data-sec="+0.1">0.1s&nbsp;<i class="glyphicon glyphicon-forward"></i></button>
-        <button id="seek-comm-5" class="seek-comm btn common_seek_btn" index="0" data-sec="+1">1s&nbsp;<i class="glyphicon glyphicon-forward"></i></button>
-        <button id="seek-comm-6" class="seek-comm btn common_seek_btn" index="0" data-sec="+2">2s&nbsp;<i class="glyphicon glyphicon-forward"></i></button>
+    <span id="comm">
+    <button id="seek-comm-1" class="seek-comm btn common_seek_btn" index="0" data-sec="-2"><i class="glyphicon glyphicon-backward"></i>&nbsp;2s</button>
+    <button id="seek-comm-2" class="seek-comm btn common_seek_btn" index="0" data-sec="-1"><i class="glyphicon glyphicon-backward"></i>&nbsp;1s</button>
+    <button id="seek-comm-3" class="seek-comm btn common_seek_btn" index="0" data-sec="-0.1"><i class="glyphicon glyphicon-backward"></i>&nbsp;0.1s</button>
+    
+    <button id="play-comm" class="btn common_control_btn" index="0"><i class="playIcon-comm glyphicon glyphicon-play"></i></button>
+    
+    <button id="seek-comm-4" class="seek-comm btn common_seek_btn" index="0" data-sec="+0.1">0.1s&nbsp;<i class="glyphicon glyphicon-forward"></i></button>
+    <button id="seek-comm-5" class="seek-comm btn common_seek_btn" index="0" data-sec="+1">1s&nbsp;<i class="glyphicon glyphicon-forward"></i></button>
+    <button id="seek-comm-6" class="seek-comm btn common_seek_btn" index="0" data-sec="+2">2s&nbsp;<i class="glyphicon glyphicon-forward"></i></button>
+    </span>
 </div>
 <div id="time_control">
+    <span id="time">
     <input type="text" readonly id="offset1" value="0.00" class="txt" />
     <button id="reset" class="btn reset_btn"><i class="glyphicon glyphicon-refresh"></i></button>
     <input type="text" readonly id="offset2" value="0.00" class="txt" />
+    </span>
 </div>
 <div id="footer">
     <ul>
