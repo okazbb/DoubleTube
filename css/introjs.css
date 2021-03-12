@@ -179,7 +179,7 @@ tr.introjs-showElement > th {
           box-sizing: content-box;
   position: absolute;
   visibility: visible;
-  background-color: #ffffff;
+  background-color: #3b3b3b;
   min-width: 250px;
   max-width: 450px;
   border-radius: 5px;
@@ -190,6 +190,7 @@ tr.introjs-showElement > th {
   transition: opacity 0.1s ease-out; }
 
 .introjs-tooltiptext {
+  color: #b1b4b9;
   padding: 20px; }
 
 .introjs-tooltip-title {
@@ -212,7 +213,7 @@ tr.introjs-showElement > th {
     clear: both; }
 
 .introjs-tooltipbuttons {
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid #999da68c;
   padding: 10px;
   text-align: right;
   white-space: nowrap; }
