@@ -78,6 +78,7 @@ tr.introjs-showElement > th {
   position: relative; }
 
 .introjs-helperLayer {
+  background-color: #999;
   -webkit-box-sizing: content-box;
           box-sizing: content-box;
   position: absolute;
