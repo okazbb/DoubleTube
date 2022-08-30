@@ -181,8 +181,6 @@ function onYouTubePlayerAPIReady() {
         }
     }
 
-    if(videoid_exists) showRecommend(videoIdParam);
-
 }
 
 /**
